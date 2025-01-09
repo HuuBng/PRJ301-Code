@@ -30,16 +30,16 @@ public class Calculator2 extends HttpServlet {
         String op = request.getParameter("op");
         Object result = null;
         switch (op) {
-            case "Add":
+            case "add":
                 result = num1 + num2;
                 break;
-            case "Minus":
+            case "sub":
                 result = num1 - num2;
                 break;
-            case "Mult":
+            case "mul":
                 result = num1 * num2;
                 break;
-            case "Div":
+            case "div":
                 if (num2 == 0) {
                     result = "Can't divide by zero";
                 } else {

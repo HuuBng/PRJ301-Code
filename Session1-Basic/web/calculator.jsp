@@ -14,10 +14,10 @@
             <input type="text" name="num1" value="${param.num1}" /> <br/>
             Number 2: <br/>
             <input type="text" name="num2" value="${param.num2}" /> <br/>
-            <input type="submit" name="op" value="Add" />
-            <input type="submit" name="op" value="Minus" />
-            <input type="submit" name="op" value="Mult" />
-            <input type="submit" name="op" value="Div" />
+            <button type="submit" name="op" value="add">Add</button>
+            <button type="submit" name="op" value="sub">Sub</button>
+            <button type="submit" name="op" value="mul">Mul</button>
+            <button type="submit" name="op" value="div">Div</button>
             <input type="reset" value="Reset" />
         </form>
         <!-- Lay attribute tu doi tuong request -->
