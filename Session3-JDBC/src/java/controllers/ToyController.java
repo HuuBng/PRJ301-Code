@@ -64,11 +64,23 @@ public class ToyController extends HttpServlet {
 
         request.getRequestDispatcher("/create.jsp").forward(request, response);
     }
-    
+
     protected void create_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/create.jsp").forward(request, response);
+        try {
+            String op = request.getParameter("op");
+            switch (op) {
+                case "create":
+                    break;
+                case "cancel":
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    break;
+            }
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
