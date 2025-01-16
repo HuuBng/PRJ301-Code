@@ -34,12 +34,20 @@ public class ToyController extends HttpServlet {
                 index(request, response);
                 break;
             case "create":
-                // Hien create form
+                // Hien form
                 create(request, response);
                 break;
             case "create_handler":
-                // Xu ly create form
+                // Xu ly form
                 create_handler(request, response);
+                break;
+            case "delete":
+                // Hien form
+                delete(request, response);
+                break;
+            case "delete_handler":
+                // Xu ly form
+                delete_handler(request, response);
                 break;
         }
 
@@ -96,6 +104,49 @@ public class ToyController extends HttpServlet {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+            request.setAttribute("message", "Can't add new toy");
+            request.getRequestDispatcher("/create.jsp").forward(request, response);
+        }
+    }
+
+    protected void delete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher("/delete.jsp").forward(request, response);
+    }
+
+    protected void delete_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
+            String op = request.getParameter("op");
+            switch (op) {
+                case "create":
+                    String id = request.getParameter("id");
+                    String name = request.getParameter("name");
+                    double price = Double.parseDouble(request.getParameter("price"));
+                    String expDate = request.getParameter("expDate");
+                    String brand = request.getParameter("brand");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    // Tao doi tuong "toy"
+                    Toy toy = new Toy(id, name, price, sdf.parse(expDate), brand);
+                    // insert data vao db
+                    ToyFacade tf = new ToyFacade();
+                    tf.create(toy);
+//                    break;
+                case "cancel":
+                    // Cach 1
+                    //request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+                    // Cach 2
+                    request.getRequestDispatcher("/toy?action=index").forward(request, response);
+                    break;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", "Can't add new toy");
+            request.getRequestDispatcher("/create.jsp").forward(request, response);
         }
     }
 

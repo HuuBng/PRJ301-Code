@@ -26,6 +26,7 @@
                 <th style="text-align: right">Price</th>
                 <th>Expired Date</th>
                 <th>Brand</th>
+                <th>Operation</th>
             </tr>
             <c:forEach var="toy" items="${list}">
                 <tr>
@@ -38,7 +39,10 @@
                         <fmt:formatDate value="${toy.expDate}" pattern="dd-MM-yyyy"/>
                     </td>
                     <td>${toy.brand}</td>
-
+                    <td>
+                        <a href="toy?action=edit">Edit</a> | 
+                        <a href="toy?action=delete&id=${toy.id}">Delete</a>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
