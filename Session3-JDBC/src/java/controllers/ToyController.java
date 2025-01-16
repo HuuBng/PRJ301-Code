@@ -5,6 +5,7 @@ import db.ToyFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,12 +73,27 @@ public class ToyController extends HttpServlet {
             String op = request.getParameter("op");
             switch (op) {
                 case "create":
-                    break;
+                    String id = request.getParameter("id");
+                    String name = request.getParameter("name");
+                    double price = Double.parseDouble(request.getParameter("price"));
+                    String expDate = request.getParameter("expDate");
+                    String brand = request.getParameter("brand");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    // Tao doi tuong "toy"
+                    Toy toy = new Toy(id, name, price, sdf.parse(expDate), brand);
+                    // insert data vao db
+                    ToyFacade tf = new ToyFacade();
+                    tf.create(toy);
+//                    break;
                 case "cancel":
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    // Cach 1
+                    //request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+                    // Cach 2
+                    request.getRequestDispatcher("/toy?action=index").forward(request, response);
                     break;
             }
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
