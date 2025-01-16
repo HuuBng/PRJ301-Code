@@ -27,6 +27,25 @@ public class ToyController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String action = request.getParameter("action");
+        switch (action) {
+            case "index":
+                index(request, response);
+                break;
+            case "create":
+                // Hien create form
+                create(request, response);
+                break;
+            case "create_handler":
+                // Xu ly create form
+                create_handler(request, response);
+                break;
+        }
+
+    }
+
+    protected void index(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             //doc table toy
             ToyFacade tf = new ToyFacade();
@@ -38,6 +57,18 @@ public class ToyController extends HttpServlet {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    protected void create(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher("/create.jsp").forward(request, response);
+    }
+    
+    protected void create_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.getRequestDispatcher("/create.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
