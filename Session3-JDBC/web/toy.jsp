@@ -40,7 +40,7 @@
                     </td>
                     <td>${toy.brand}</td>
                     <td>
-                        <a href="toy?action=edit">Edit</a> | 
+                        <a href="toy?action=edit&id=${toy.id}">Edit</a> | 
                         <a href="toy?action=delete&id=${toy.id}">Delete</a>
                     </td>
                 </tr>
