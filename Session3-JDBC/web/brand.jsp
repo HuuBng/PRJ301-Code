@@ -22,8 +22,8 @@
                     <td>${brand.id}</td>
                     <td>${brand.name}</td>
                     <td>
-                        <a href="toy?action=edit&id=${brand.id}">Edit</a> | 
-                        <a href="toy?action=delete&id=${brand.id}">Delete</a>
+                        <a href="brand?action=edit&id=${brand.id}">Edit</a> | 
+                        <a href="brand?action=delete&id=${brand.id}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>
