@@ -8,6 +8,6 @@
         <h1>Tables</h1>
         <hr/>
         <div><a href="toy?action=index">Toy</a></div>
-        <div><a>Brand</a></div>
+        <div><a href="brand?action=index">Brand</a></div>
     </body>
 </html>
