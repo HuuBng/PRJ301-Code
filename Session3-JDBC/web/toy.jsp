@@ -1,10 +1,3 @@
-<%-- 
-    Document   : toy
-    Created on : Jan 13, 2025, 10:45:03 AM
-    Author     : ACER
---%>
-
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="en-US" />

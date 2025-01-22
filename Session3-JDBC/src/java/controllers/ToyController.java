@@ -7,13 +7,13 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet(name = "ToyController", urlPatterns = {"/toy"})
 public class ToyController extends HttpServlet {
 
     /**
@@ -79,7 +79,7 @@ public class ToyController extends HttpServlet {
     protected void create(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/create.jsp").forward(request, response);
+        request.getRequestDispatcher("/create-toy.jsp").forward(request, response);
     }
 
     protected void create_handler(HttpServletRequest request, HttpServletResponse response)
@@ -112,14 +112,14 @@ public class ToyController extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("message", "Can't add new toy");
-            request.getRequestDispatcher("/create.jsp").forward(request, response);
+            request.getRequestDispatcher("/create-toy.jsp").forward(request, response);
         }
     }
 
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.getRequestDispatcher("/delete.jsp").forward(request, response);
+        request.getRequestDispatcher("/delete-toy.jsp").forward(request, response);
     }
 
     protected void delete_handler(HttpServletRequest request, HttpServletResponse response)
@@ -155,7 +155,7 @@ public class ToyController extends HttpServlet {
             ToyFacade tf = new ToyFacade();
             Toy toy = tf.read(id);
             request.setAttribute("toy", toy);
-            request.getRequestDispatcher("/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/edit-toy.jsp").forward(request, response);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -207,11 +207,8 @@ public class ToyController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request,
-            HttpServletResponse response
-    )
-            throws ServletException,
-            IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -224,11 +221,8 @@ public class ToyController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response
-    )
-            throws ServletException,
-            IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
