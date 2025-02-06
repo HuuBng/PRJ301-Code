@@ -21,7 +21,13 @@
             Expired Date: <br/>
             <input type="date" name="expDate" value="${param.expDate!=null?param.expDate:toy.expDate}"/> <br/>
             Brand: <br/>
-            <input type="text" name="brand" value="${param.brand!=null?param.brand:toy.brand}"/> <br/>
+            <!--<input type="text" name="brand" value="${param.brand!=null?param.brand:toy.brand}"/> -->
+            <select name="brand" >
+                <c:forEach var="brand" items="${list}" >
+                    <option value="${brand.id}" ${param.brand==brand.id?"selected":""}>${brand.name}</option>
+                </c:forEach>
+            </select>
+            <br/>
             <button type="submit" name="op" value="update" >Update</button>
             <button type="submit" name="op" value="cancel" >Cancel</button>
         </form>

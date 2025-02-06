@@ -38,7 +38,6 @@ public class ToyController extends HttpServlet {
         String action = uri.substring(uri.lastIndexOf("/") + 1, uri.indexOf("."));
 
         //System.out.println("action: " + action);
-        
         switch (action) {
             case "index":
                 index(request, response);
@@ -70,7 +69,7 @@ public class ToyController extends HttpServlet {
         }
 
     }
-    
+
     protected void index(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -90,13 +89,13 @@ public class ToyController extends HttpServlet {
             throws ServletException, IOException {
         try {
             // Read table brand
-        BrandFacade bf = new BrandFacade();
-        List<Brand> list = bf.select();
-        
-        // Sent list to view to create combo box
-        request.setAttribute("list", list);
-        // Show view
-        request.getRequestDispatcher("/create-toy.jsp").forward(request, response);
+            BrandFacade bf = new BrandFacade();
+            List<Brand> list = bf.select();
+
+            // Sent list to view to create combo box
+            request.setAttribute("list", list);
+            // Show view
+            request.getRequestDispatcher("/create-toy.jsp").forward(request, response);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -175,6 +174,14 @@ public class ToyController extends HttpServlet {
             ToyFacade tf = new ToyFacade();
             Toy toy = tf.read(id);
             request.setAttribute("toy", toy);
+            
+            // Read table brand
+            BrandFacade bf = new BrandFacade();
+            List<Brand> list = bf.select();
+
+            // Sent list to view to create combo box
+            request.setAttribute("list", list);
+            
             request.getRequestDispatcher("/edit-toy.jsp").forward(request, response);
 
         } catch (Exception ex) {
@@ -212,8 +219,8 @@ public class ToyController extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("message", "Can't edit toy");
-            edit(request, response);
-
+            // edit(request, response);
+            request.getRequestDispatcher("/toy/edit.do").forward(request, response);
         }
     }
 
