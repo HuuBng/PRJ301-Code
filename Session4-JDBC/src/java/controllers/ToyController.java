@@ -1,5 +1,7 @@
 package controllers;
 
+import db.Brand;
+import db.BrandFacade;
 import db.Toy;
 import db.ToyFacade;
 import java.io.IOException;
@@ -86,8 +88,18 @@ public class ToyController extends HttpServlet {
 
     protected void create(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        try {
+            // Read table brand
+        BrandFacade bf = new BrandFacade();
+        List<Brand> list = bf.select();
+        
+        // Sent list to view to create combo box
+        request.setAttribute("list", list);
+        // Show view
         request.getRequestDispatcher("/create-toy.jsp").forward(request, response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     protected void create_handler(HttpServletRequest request, HttpServletResponse response)
@@ -120,7 +132,7 @@ public class ToyController extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("message", "Can't add new toy");
-            request.getRequestDispatcher("/create-toy.jsp").forward(request, response);
+            request.getRequestDispatcher("/toy/create.do").forward(request, response);
         }
     }
 
