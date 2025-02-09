@@ -10,7 +10,7 @@
     <body>
         <h1>Brand Crud</h1>
         <hr/>
-        <a href="brand?action=create">Create New</a><br/>
+        <a href="<c:url value="/brand/create.do"/>">Create New</a><br/>
         <table border="1" cellspacing="0" cellpadding="2">
             <tr>
                 <th>Id</th>
@@ -22,8 +22,8 @@
                     <td>${brand.id}</td>
                     <td>${brand.name}</td>
                     <td>
-                        <a href="brand?action=edit&id=${brand.id}">Edit</a> | 
-                        <a href="brand?action=delete&id=${brand.id}">Delete</a>
+                        <a href="<c:url value="/brand/edit.do?id=${brand.id}"/>">Edit</a> | 
+                        <a href="<c:url value="/brand/delete.do?id=${brand.id}"/>">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

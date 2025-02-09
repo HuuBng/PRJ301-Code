@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,12 +8,11 @@
     <body>
         <h1>Create Brand</h1>
         <hr/>
-        <form action="brand">
+        <form action="<c:url value="/brand/create_handler.do"/>">
             Id: <br/>
             <input type="text" name="id" value="${param.id}"/> <br/>
             Name: <br/>
             <input type="text" name="name" value="${param.name}"/> <br/>
-            <input type="hidden" name="action" value="create_handler" />
             <button type="submit" name="op" value="create" >Create</button>
             <button type="submit" name="op" value="cancel" >Cancel</button>
         </form>

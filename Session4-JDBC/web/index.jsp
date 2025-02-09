@@ -8,6 +8,6 @@
         <h1>Tables</h1>
         <hr/>
         <div><a href="toy/index.do">Toy</a></div>
-        <div><a href="brand?action=index">Brand: TBF</a></div>
+        <div><a href="brand/index.do">Brand</a></div>
     </body>
 </html>

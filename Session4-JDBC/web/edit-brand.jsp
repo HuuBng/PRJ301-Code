@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +8,7 @@
     <body>
         <h1>Edit Brand</h1>
         <hr/>
-        <form action="brand">
+        <form action="<c:url value="/brand/edit_handler.do"/>">
             Id: <br/>
             <!-- Show id-->
             <input type="text" value="${brand.id}" disabled=""/>
@@ -15,7 +16,6 @@
             <input type="hidden" name="id" value="${brand.id}"/> <br/>
             Name: <br/>
             <input type="text" name="name" value="${param.name!=null?param.name:brand.name}"/> <br/>
-            <input type="hidden" name="action" value="edit_handler" />
             <button type="submit" name="op" value="update" >Update</button>
             <button type="submit" name="op" value="cancel" >Cancel</button>
         </form>
