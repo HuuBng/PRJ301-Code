@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "FrontController", urlPatterns = {"*.do"})
-public class FrontController extends HttpServlet {
+@WebServlet(name = "UserController", urlPatterns = {"/user"})
+public class UserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -23,21 +23,46 @@ public class FrontController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String path = request.getServletPath();
-//        System.out.println("path: " + path);
-        int m = path.lastIndexOf("/");
-        String controller = path.substring(0, m);
-        String action = path.substring(m + 1, path.lastIndexOf("."));
-        
-        // Luu controller vao request
-        request.setAttribute("controller", controller);
-        request.setAttribute("action", action);
-        
-        // Chuyen request cho controller tuong ung
-        request.getRequestDispatcher(controller).forward(request, response);
+        String action = request.getAttribute("action").toString();
+
+        switch (action) {
+            case "register":
+                register(request, response);
+                break;
+            case "login":
+                login(request, response);
+                break;
+            case "logout":
+                logout(request, response);
+                break;
+        }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    protected void register(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Xu ly
+
+        // Cho hien view
+        request.getRequestDispatcher("/user/register.jsp").forward(request, response);
+    }
+
+    protected void login(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Xu ly
+
+        // Cho hien view
+        request.getRequestDispatcher("/user/login.jsp").forward(request, response);
+    }
+
+    protected void logout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Xu ly
+
+        // Cho hien view
+        request.getRequestDispatcher("/user/logout.jsp").forward(request, response);
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
