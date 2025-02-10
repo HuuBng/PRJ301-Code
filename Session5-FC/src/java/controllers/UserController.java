@@ -43,7 +43,7 @@ public class UserController extends HttpServlet {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/user/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/user/register.jsp").forward(request, response);
     }
 
     protected void login(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +51,7 @@ public class UserController extends HttpServlet {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/user/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/user/login.jsp").forward(request, response);
     }
 
     protected void logout(HttpServletRequest request, HttpServletResponse response)
@@ -59,7 +59,7 @@ public class UserController extends HttpServlet {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/user/logout.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/user/logout.jsp").forward(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
