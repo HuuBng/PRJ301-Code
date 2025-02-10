@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "HomeController", urlPatterns = {"/home"})
+public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -26,43 +26,19 @@ public class ProductController extends HttpServlet {
         String action = request.getAttribute("action").toString();
 
         switch (action) {
-            case "create":
-                create(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
-            case "delete":
-                delete(request, response);
+            case "index":
+                index(request, response);
                 break;
         }
     }
-
-    protected void create(HttpServletRequest request, HttpServletResponse response)
+    
+    protected void index(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Xu ly
-
-        // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/create.jsp").forward(request, response);
+        
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
 
-    protected void edit(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Xu ly
-
-        // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/edit.jsp").forward(request, response);
-    }
-
-    protected void delete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Xu ly
-
-        // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/delete.jsp").forward(request, response);
-    }
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

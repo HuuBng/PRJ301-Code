@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "FrontController", urlPatterns = {"*.do"})
+public class FrontController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -23,46 +23,21 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getAttribute("action").toString();
-
-        switch (action) {
-            case "create":
-                create(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
-            case "delete":
-                delete(request, response);
-                break;
-        }
+        String path = request.getServletPath();
+//        System.out.println("path: " + path);
+        int m = path.lastIndexOf("/");
+        String controller = path.substring(0, m);
+        String action = path.substring(m + 1, path.lastIndexOf("."));
+        
+        // Luu controller vao request
+        request.setAttribute("controller", controller);
+        request.setAttribute("action", action);
+        
+        // Chuyen request cho controller tuong ung
+        request.getRequestDispatcher(controller).forward(request, response);
     }
 
-    protected void create(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Xu ly
-
-        // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/create.jsp").forward(request, response);
-    }
-
-    protected void edit(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Xu ly
-
-        // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/edit.jsp").forward(request, response);
-    }
-
-    protected void delete(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Xu ly
-
-        // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/delete.jsp").forward(request, response);
-    }
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

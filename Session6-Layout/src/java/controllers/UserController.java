@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "UserController", urlPatterns = {"/user"})
+public class UserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -26,40 +26,42 @@ public class ProductController extends HttpServlet {
         String action = request.getAttribute("action").toString();
 
         switch (action) {
-            case "create":
-                create(request, response);
+            case "register":
+                register(request, response);
                 break;
-            case "edit":
-                edit(request, response);
+            case "login":
+                login(request, response);
                 break;
-            case "delete":
-                delete(request, response);
+            case "logout":
+                logout(request, response);
                 break;
         }
     }
 
-    protected void create(HttpServletRequest request, HttpServletResponse response)
+    protected void register(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/create.jsp").forward(request, response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
 
-    protected void edit(HttpServletRequest request, HttpServletResponse response)
+    protected void login(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/edit.jsp").forward(request, response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+
     }
 
-    protected void delete(HttpServletRequest request, HttpServletResponse response)
+    protected void logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/delete.jsp").forward(request, response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

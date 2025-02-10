@@ -43,7 +43,8 @@ public class ProductController extends HttpServlet {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/create.jsp").forward(request, response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+
     }
 
     protected void edit(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +52,8 @@ public class ProductController extends HttpServlet {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/edit.jsp").forward(request, response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+
     }
 
     protected void delete(HttpServletRequest request, HttpServletResponse response)
@@ -59,7 +61,8 @@ public class ProductController extends HttpServlet {
         // Xu ly
 
         // Cho hien view
-        request.getRequestDispatcher("/WEB-INF/product/delete.jsp").forward(request, response);
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
