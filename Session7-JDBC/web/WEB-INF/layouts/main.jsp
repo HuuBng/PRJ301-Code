@@ -6,7 +6,7 @@
     </head>
     <body>
         <%--header--%>
-        <h1 style="color: red">Layout demo</h1>
+        <h1 style="color: red">FrontController - Layout - JDBC - Demo</h1>
         <hr/>
         <%--content--%>
         <jsp:include page="/WEB-INF/${controller}/${action}.jsp" />
