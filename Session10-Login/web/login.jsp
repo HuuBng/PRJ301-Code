@@ -10,12 +10,13 @@
         <h1>Login</h1>
         <hr/>
         <form action="<c:url value="/user/login.do"/>">
-            Email: <hr/>
-            <input type="email" name="email" value="${param.email}" />
-            Password: <hr/>
-            <input type="text" name="password" value="${param.password}" />
+            Email: <br/>
+            <input type="email" name="email" value="${param.email}" /><br/>
+            Password: <br/>
+            <input type="text" name="password" value="${param.password}" /><br/>
             <button type="submit" name="op" value="login">Submit</button>
             <button type="submit" name="op" value="cancel">Cancel</button>
         </form>
+        <i style="color: red">${messsage}</i>
     </body>
 </html>
