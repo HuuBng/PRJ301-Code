@@ -12,6 +12,6 @@
     <body>
         <h1>Admin Page</h1>
         <hr/>
-        Welcome ${account.fullName} | <a href="<c:url value="/user/logout.do"/>">Logout</a>
+        <jsp:include page="/link.jsp"/>
     </body>
 </html>
