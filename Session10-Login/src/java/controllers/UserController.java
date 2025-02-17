@@ -37,6 +37,9 @@ public class UserController extends HttpServlet {
             case "login":
                 login(request, response);
                 break;
+            case "logout":
+                logout(request, response);
+                break;
         }
 
     }
@@ -86,6 +89,18 @@ public class UserController extends HttpServlet {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 
         }
+    }
+
+    protected void logout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Lay tham chieu cua doi tuong session
+        HttpSession session = request.getSession();
+        
+        // Huy session
+        session.invalidate();
+        
+        // Cho hien home page
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

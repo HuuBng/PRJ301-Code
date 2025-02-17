@@ -9,7 +9,7 @@
     <body>
         <h1>Login</h1>
         <hr/>
-        <form action="<c:url value="/user/login.do"/>">
+        <form action="<c:url value="/user/login.do"/>" method="post">
             Email: <br/>
             <input type="email" name="email" value="${param.email}" /><br/>
             Password: <br/>
