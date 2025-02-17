@@ -8,6 +8,6 @@
     </head>
     <body>
         <h1>Home Page</h1>
-        <a href="<c:url value="login.do"/>">Login</a>
+        <a href="<c:url value="/login.jsp"/>">Login</a>
     </body>
 </html>
