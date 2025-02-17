@@ -34,7 +34,7 @@ public class UserController extends HttpServlet {
 
         //System.out.println("action: " + action)
         switch (action) {
-            case "index":
+            case "login":
                 login(request, response);
                 break;
         }
@@ -51,19 +51,19 @@ public class UserController extends HttpServlet {
                     String email = request.getParameter("email");
                     String password = request.getParameter("password");
                     AccountFacade af = new AccountFacade();
-                    Account acc = af.login(email, password);
+                    Account account = af.login(email, password);
 
-                    if (acc != null) {
+                    if (account != null) {
                         // If login dung
 
                         // Lay tham chieu cua doi tuong session
                         HttpSession session = request.getSession();
 
                         // luu account vao session
-                        session.setAttribute("account", acc);
+                        session.setAttribute("account", account);
 
                         // Forward den role tuong ung cua user
-                        if (acc.getRole().equalsIgnoreCase("ADMIN")) {
+                        if (account.getRole().equals("ADMIN")) {
                             request.getRequestDispatcher("/admin.jsp").forward(request, response);
                         } else {
                             request.getRequestDispatcher("/user.jsp").forward(request, response);

@@ -19,7 +19,7 @@ public class AccountFacade {
         PreparedStatement stm = con.prepareStatement("SELECT * FROM account WHERE email = ? AND password = ?");
         // Cung cap gia tri cho cac tham so
         stm.setString(1, email);
-        stm.setString(1, password);
+        stm.setString(2, password);
 
         // Thuc hien lenh SQL
         ResultSet rs = stm.executeQuery();
