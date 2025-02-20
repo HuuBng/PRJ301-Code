@@ -38,7 +38,10 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
         try {
             int pageSize = 6;
+            // Lay tham so page
             int page = Integer.parseInt(request.getParameter("page"));
+            // Luu page vao request
+            request.setAttribute("page", page);
             //doc table toy
             ProductFacade tf = new ProductFacade();
             List<Product> list = tf.select(page, pageSize);

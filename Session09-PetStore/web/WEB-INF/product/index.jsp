@@ -1,6 +1,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="row">
+    <div class="col-sm-12">
+        <a href="<c:url value="/?page=${page+1}"/>">Next</a>
+    </div>
+</div>
+
+<div class="row">
     <c:forEach var="product" items="${list}" >
         <div class="col-sm-4 mt-3 mb-3">
             Id: ${product.id} <br/>
