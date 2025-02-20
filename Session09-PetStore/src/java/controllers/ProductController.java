@@ -12,18 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name="ProductController", urlPatterns={"/product"})
+@WebServlet(name = "ProductController", urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getAttribute("action").toString();
 
@@ -33,18 +35,22 @@ public class ProductController extends HttpServlet {
                 break;
         }
     }
-    
+
     protected void index(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             int pageSize = 6;
             // Lay tham so page
-            int page = Integer.parseInt(request.getParameter("page"));
+            String spage = request.getParameter("page");
+            int page = (spage == null) ? 1 : (Integer.parseInt(spage) == 0) ? 1 : Integer.parseInt(spage);
+            //doc table toy
+            ProductFacade pf = new ProductFacade();
+            List<Product> list = pf.select(page, pageSize);
             // Luu page vao request
             request.setAttribute("page", page);
-            //doc table toy
-            ProductFacade tf = new ProductFacade();
-            List<Product> list = tf.select(page, pageSize);
+            // Luu totalPage vao request
+            int totalPage = (int) Math.ceil(pf.count() / pageSize * 1.0);
+            request.setAttribute("totalPage", totalPage);
             //luu list vao request
             request.setAttribute("list", list);
             //forward request va response cho view 
@@ -55,8 +61,9 @@ public class ProductController extends HttpServlet {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -64,12 +71,13 @@ public class ProductController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -77,12 +85,13 @@ public class ProductController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

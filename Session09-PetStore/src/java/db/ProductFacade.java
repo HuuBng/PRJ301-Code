@@ -62,6 +62,23 @@ public class ProductFacade {
         return list;
     }
 
+    public int count() throws SQLException {
+
+        int rowCount = 0;
+
+        //Tao connection
+        Connection con = DBContext.getConnection();
+        // Tao doi tuong stm va thuc hien lenh SELECT
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT COUNT(*) AS [rowCount] FROM Product");
+        if (rs.next()) {
+            rowCount = rs.getInt("rowCount");
+        }
+        // Close connection
+        con.close();
+        return rowCount;
+    }
+
     public void create(Product product) throws SQLException {
         //Tao connection
         Connection con = DBContext.getConnection();
