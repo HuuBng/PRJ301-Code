@@ -28,24 +28,37 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getAttribute("action").toString();
-        
+
         switch (action) {
             case "add":
                 add(request, response);
                 break;
         }
     }
-    
+
     protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             int id = Integer.parseInt(request.getParameter("id"));
+
             ProductFacade pf = new ProductFacade();
             Product product = pf.select(id);
-            
+
+            // Lay cart tu session
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
+
+            if (cart == null) {
+                // Neu trong session chua co thi tao cart
+                cart = new Cart();
+                session.setAttribute("cart", cart);
+            }
+            // Them product vao cart
+            cart.add(product, 1);
             
+            // Cho hien view index
+            request.getRequestDispatcher("/").forward(request, response);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
