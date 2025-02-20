@@ -42,7 +42,7 @@ public class ProductController extends HttpServlet {
             int pageSize = 6;
             // Lay tham so page
             String spage = request.getParameter("page");
-            int page = (spage == null) ? 1 : (Integer.parseInt(spage) == 0) ? 1 : Integer.parseInt(spage);
+            int page = (spage == null) ? 1 : (Integer.parseInt(spage) <= 0) ? 1 : Integer.parseInt(spage);
             //doc table toy
             ProductFacade pf = new ProductFacade();
             List<Product> list = pf.select(page, pageSize);
