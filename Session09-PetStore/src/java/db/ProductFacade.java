@@ -61,6 +61,30 @@ public class ProductFacade {
         con.close();
         return list;
     }
+    
+    public Product select(int id) throws SQLException {
+        Product product = null;
+        //Tao connection
+        Connection con = DBContext.getConnection();
+        // Tao doi tuong stm va thuc hien lenh SELECT
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM Product WHERE id = ?");
+
+        stm.setInt(1, id);
+
+        ResultSet rs = stm.executeQuery();
+        if (rs.next()) {
+            // Doc row hien tai vao doi tuong product
+            product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setDescription(rs.getString("description"));
+            product.setPrice(rs.getDouble("price"));
+            product.setDiscount(rs.getDouble("discount"));
+            product.setCategoryId(rs.getInt("categoryId"));
+        }
+        // Close connection
+        con.close();
+        return product;
+    }
 
     public int count() throws SQLException {
 
