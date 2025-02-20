@@ -37,9 +37,11 @@ public class ProductController extends HttpServlet {
     protected void index(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            int pageSize = 6;
+            int page = Integer.parseInt(request.getParameter("page"));
             //doc table toy
             ProductFacade tf = new ProductFacade();
-            List<Product> list = tf.select();
+            List<Product> list = tf.select(page, pageSize);
             //luu list vao request
             request.setAttribute("list", list);
             //forward request va response cho view 

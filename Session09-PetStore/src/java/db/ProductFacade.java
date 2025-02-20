@@ -34,6 +34,34 @@ public class ProductFacade {
         return list;
     }
 
+    public List<Product> select(int page, int pageSize) throws SQLException {
+        List<Product> list = null;
+        //Tao connection
+        Connection con = DBContext.getConnection();
+        // Tao doi tuong stm va thuc hien lenh SELECT
+        PreparedStatement stm = con.prepareStatement("SELECT * FROM Product ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+
+        stm.setInt(1, (page - 1) * pageSize);
+        stm.setInt(2, pageSize);
+
+        ResultSet rs = stm.executeQuery();
+        list = new ArrayList<>();
+        while (rs.next()) {
+            // Doc row hien tai vao doi tuong product
+            Product product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setDescription(rs.getString("description"));
+            product.setPrice(rs.getDouble("price"));
+            product.setDiscount(rs.getDouble("discount"));
+            product.setCategoryId(rs.getInt("categoryId"));
+            // Them product vao list
+            list.add(product);
+        }
+        // Close connection
+        con.close();
+        return list;
+    }
+
     public void create(Product product) throws SQLException {
         //Tao connection
         Connection con = DBContext.getConnection();
