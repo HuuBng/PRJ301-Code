@@ -169,7 +169,7 @@ public class MainController extends HttpServlet {
                     EmployeeDAO ef = new EmployeeDAO();
                     ef.create(fullname, dob, salary);
                     
-                    url = "employees.jsp?";
+                    url = "employees.jsp";
                     break;
                 case "cancel":
                     url = "employees.jsp";
