@@ -18,7 +18,9 @@
             <div class="row">
                 <div class="col-md-12 header">
                     <%--header--%>
-                    <h1 class="title" style="color: blue">Pet Store</h1>
+                    <h1 class="title" style="color: blue">
+                        <a href="<c:url value="/" />" style="text-decoration: none">Pet Store</a>
+                    </h1>
                     <p class="float-end">
                         <a href="<c:url value="/cart/index.do" />">
                             <i class="bi bi-cart2"></i> ${cart.total}
