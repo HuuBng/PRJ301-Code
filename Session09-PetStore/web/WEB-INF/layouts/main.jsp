@@ -22,8 +22,14 @@
                         <a href="<c:url value="/" />" style="text-decoration: none">Pet Store</a>
                     </h1>
                     <p class="float-end">
-                        <a href="<c:url value="/cart/index.do" />">
-                            <i class="bi bi-cart2"></i> ${cart.total}
+                        <a href="<c:url value="/cart/index.do" />" class="btn">
+                            <c:if test="${cart.total == 0}">
+                                <i class="bi bi-cart2"></i>
+                            </c:if>
+                            <c:if test="${cart.total != 0}">
+                                <i class="bi bi-cart-fill"></i>
+                            </c:if>
+                            <fmt:formatNumber type="currency" value="${cart.total}" currencySymbol="$"/>
                         </a>
                     </p>
                 </div>

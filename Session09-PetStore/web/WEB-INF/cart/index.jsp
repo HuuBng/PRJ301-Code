@@ -32,7 +32,7 @@
             </td>
             <td>
                 <a href="" >Update</a> |
-                <a href="" >Remove</a>
+                <a href="<c:url value="/cart/remove.do?item=${item.id}" />" >Remove</a>
             </td>
         </tr>
     </c:forEach>

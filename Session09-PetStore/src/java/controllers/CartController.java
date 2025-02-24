@@ -1,6 +1,7 @@
 package controllers;
 
 import cart.Cart;
+import cart.Item;
 import db.Product;
 import db.ProductFacade;
 import java.io.IOException;
@@ -84,7 +85,12 @@ public class CartController extends HttpServlet {
 
     protected void remove(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        
+        cart.remove(Integer.parseInt(request.getParameter("item")));    
+        
+        request.getRequestDispatcher("/cart/index.do").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
