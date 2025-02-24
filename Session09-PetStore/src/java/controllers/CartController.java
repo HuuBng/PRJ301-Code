@@ -36,6 +36,12 @@ public class CartController extends HttpServlet {
             case "add":
                 add(request, response);
                 break;
+            case "remove":
+                remove(request, response);
+                break;
+            case "empty":
+                empty(request, response);
+                break;
         }
     }
 
@@ -50,12 +56,7 @@ public class CartController extends HttpServlet {
             // Lay cart tu session
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
-
-            if (cart == null) {
-                // Neu trong session chua co thi tao cart
-                cart = new Cart();
-                session.setAttribute("cart", cart);
-            }
+            
             // Them product vao cart
             cart.add(product, 1);
 
@@ -68,6 +69,20 @@ public class CartController extends HttpServlet {
     }
 
     protected void index(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+    }
+
+    protected void empty(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        cart.empty();
+        request.getRequestDispatcher("/").forward(request, response);
+    }
+
+    protected void remove(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }

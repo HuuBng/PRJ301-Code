@@ -10,6 +10,7 @@
         <td style="text-align: right">New Price</td>
         <td style="text-align: right">Quantity</td>
         <td style="text-align: right">Cost</td>
+        <td>Operation</td>
     </tr>
     <c:forEach var="item" items="${cart.items}" varStatus="loop">
         <tr>
@@ -29,6 +30,17 @@
             <td style="text-align: right">                
                 <fmt:formatNumber value="${item.cost}" type="currency" currencySymbol="$"/>
             </td>
+            <td>
+                <a href="" >Update</a> |
+                <a href="" >Remove</a>
+            </td>
         </tr>
     </c:forEach>
+    <tr>
+        <th style="text-align: right" colspan="7">Total</th>
+        <th style="text-align: right">                
+            <fmt:formatNumber value="${cart.total}" type="currency" currencySymbol="$"/>
+        </th>
+        <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
+    </tr>
 </table>
