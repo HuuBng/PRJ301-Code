@@ -46,5 +46,9 @@ public class Item {
         this.quantity = quantity;
     }
     
+    public double getCost() {
+        return quantity * product.getNewPrice();
+    }
+    
     
 }

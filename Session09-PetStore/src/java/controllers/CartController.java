@@ -30,6 +30,9 @@ public class CartController extends HttpServlet {
         String action = request.getAttribute("action").toString();
 
         switch (action) {
+            case "index":
+                index(request, response);
+                break;
             case "add":
                 add(request, response);
                 break;
@@ -55,13 +58,18 @@ public class CartController extends HttpServlet {
             }
             // Them product vao cart
             cart.add(product, 1);
-            
+
             // Cho hien view index
             request.getRequestDispatcher("/").forward(request, response);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    protected void index(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

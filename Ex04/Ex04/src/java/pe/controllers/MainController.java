@@ -56,26 +56,24 @@ public class MainController extends HttpServlet {
         String url = "login.jsp";
         try {
             String op = request.getParameter("op");
-            switch (op) {
-                case "login":
-                    String email = request.getParameter("email");
-                    String password = request.getParameter("password");
-                    AccountDAO af = new AccountDAO();
-                    AccountDTO account = af.login(email, password);
+            if (op.equalsIgnoreCase("login")) {
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                AccountDAO af = new AccountDAO();
+                AccountDTO account = af.login(email, password);
 
-                    if (account != null) {
+                if (account != null) {
 
-                        HttpSession session = request.getSession();
+                    HttpSession session = request.getSession();
 
-                        session.setAttribute("account", account);
+                    session.setAttribute("account", account);
 
-                        url = "employees.jsp";
+                    url = "employees.jsp";
 
-                        employeeList(request, response);
-                    } else {
-                        throw new Exception("Incorrect email or password");
-                    }
-                    break;
+                    employeeList(request, response);
+                } else {
+                    throw new Exception("Incorrect email or password");
+                }
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -168,14 +166,14 @@ public class MainController extends HttpServlet {
 
                     EmployeeDAO ef = new EmployeeDAO();
                     ef.create(fullname, dob, salary);
-                    
+
                     url = "employees.jsp";
                     break;
                 case "cancel":
                     url = "employees.jsp";
                     break;
             }
-        } catch (ParseException ex) {  
+        } catch (ParseException ex) {
             ex.printStackTrace();
             request.setAttribute("message", "Date of Birth cannot be left blank");
         } catch (Exception ex) {

@@ -58,5 +58,8 @@ public class Product {
         this.categoryId = categoryId;
     }
     
+    public double getNewPrice() {
+        return price * (1 - discount);
+    }
     
 }
