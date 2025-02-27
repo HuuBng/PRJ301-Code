@@ -25,7 +25,7 @@
                 <fmt:formatNumber value="${item.product.newPrice}" type="currency" currencySymbol="$"/>
             </td>
             <td style="text-align: right">
-                <input type="number" name="quantity" value="${item.quantity}" style="width: 40px" />
+                <input type="number" min="0" name="quantity" value="${item.quantity}" style="width: 60px" />
             </td>
             <td style="text-align: right">                
                 <fmt:formatNumber value="${item.cost}" type="currency" currencySymbol="$"/>
