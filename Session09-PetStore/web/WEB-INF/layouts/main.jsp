@@ -21,7 +21,10 @@
                     <h1 class="title" style="color: blue">
                         <a href="<c:url value="/" />" style="text-decoration: none">Pet Store</a>
                     </h1>
+
                     <p class="float-end">
+                        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                        
                         <a href="<c:url value="/cart/index.do" />" class="btn">
                             <c:if test="${cart.total == 0}">
                                 <i class="bi bi-cart2"></i>
@@ -49,8 +52,30 @@
                 </div>
             </div>
         </div>
-
-
-
     </body>
 </html>
+
+<!-- The Modal -->
+<div class="modal" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
