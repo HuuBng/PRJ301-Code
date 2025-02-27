@@ -44,6 +44,7 @@
         <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
     </tr>
 </table>
+    <a href="<c:url value="/cart/checkout.do" />" >Checkout</a>
 <script>
     $(".update").click(function() {
         // Lay id va quantity
