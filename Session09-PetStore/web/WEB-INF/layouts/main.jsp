@@ -27,7 +27,7 @@
                             <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
                         </c:if>
                         <c:if test="${account!=null}">
-                            Welcome ${account.fullName} |
+                            <span class="btn">Welcome ${account.fullName}</span> |
                             <a href="" class="btn">Logout</a>
                         </c:if>
 
