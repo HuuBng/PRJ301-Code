@@ -46,4 +46,9 @@ public class Cart {
     public void remove(int id) {
         map.remove(id);
     }
+
+    public void update(int id, int quantity) {
+        Item item = map.get(id);
+        item.setQuantity(quantity);
+    }
 }

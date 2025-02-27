@@ -43,6 +43,9 @@ public class CartController extends HttpServlet {
             case "empty":
                 empty(request, response);
                 break;
+            case "update":
+                update(request, response);
+                break;
         }
     }
 
@@ -57,7 +60,7 @@ public class CartController extends HttpServlet {
             // Lay cart tu session
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
-            
+
             // Them product vao cart
             cart.add(product, 1);
 
@@ -87,9 +90,24 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
+
+        cart.remove(Integer.parseInt(request.getParameter("item")));
+
+        request.getRequestDispatcher("/cart/index.do").forward(request, response);
+    }
+
+    protected void update(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         
-        cart.remove(Integer.parseInt(request.getParameter("item")));    
+        int id = Integer.parseInt(request.getParameter("id"));
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
         
+        // Cap nhat cart
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+
+        cart.update(id, quantity);
+
         request.getRequestDispatcher("/cart/index.do").forward(request, response);
     }
 

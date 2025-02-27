@@ -46,6 +46,11 @@
 </table>
 <script>
     $(".update").click(function() {
-        alert($(this).data("id"));
+        // Lay id va quantity
+        var id = $(this).data("id");
+        var quantity = $(this).closest("tr").find("input[name='quantity']").val();
+        // Tao url
+        var url = `<c:url value="/cart/update.do?id=\${id}&quantity=\${quantity}" />`;
+        window.location = url;
     });
 </script>
