@@ -25,13 +25,13 @@
                 <fmt:formatNumber value="${item.product.newPrice}" type="currency" currencySymbol="$"/>
             </td>
             <td style="text-align: right">
-                <fmt:formatNumber value="${item.quantity}" type="number"/>
+                <input type="number" name="quantity" value="${item.quantity}" style="width: 40px" />
             </td>
             <td style="text-align: right">                
                 <fmt:formatNumber value="${item.cost}" type="currency" currencySymbol="$"/>
             </td>
             <td>
-                <a href="" >Update</a> |
+                <a href="#" class="update" data-id="${item.id}">Update</a> |
                 <a href="<c:url value="/cart/remove.do?item=${item.id}" />" >Remove</a>
             </td>
         </tr>
@@ -44,3 +44,8 @@
         <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
     </tr>
 </table>
+<script>
+    $(".update").click(function() {
+        alert($(this).data("id"));
+    });
+</script>

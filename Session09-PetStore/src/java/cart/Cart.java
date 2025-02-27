@@ -44,13 +44,6 @@ public class Cart {
     }
 
     public void remove(int id) {
-        if (map.keySet().contains(id)) {
-            Item item = map.get(id);
-            if (item.getQuantity() > 1) {
-                item.setQuantity(item.getQuantity() - 1);
-            } else {
-                map.remove(id);
-            }
-        }
+        map.remove(id);
     }
 }
