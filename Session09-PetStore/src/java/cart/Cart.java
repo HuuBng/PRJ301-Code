@@ -4,6 +4,7 @@ import db.OrderDetail;
 import db.OrderHeader;
 import db.OrderHeaderFacade;
 import db.Product;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;

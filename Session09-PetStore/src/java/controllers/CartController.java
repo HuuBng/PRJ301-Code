@@ -132,8 +132,8 @@ public class CartController extends HttpServlet {
                 //Xoa cart
                 cart.empty();
                 //Quay ve trang chu & thong bao checkout thanh cong
-                Alert alert = new Alert("success", "Checkout successfully", "Thank you for your order.");
-                session.setAttribute("alert", alert);
+//                Alert alert = new Alert("success", "Checkout successfully", "Thank you for your order.");
+//                session.setAttribute("alert", alert);
                 response.sendRedirect(request.getContextPath() + "?alert=1");
             }
         } catch (Exception ex) {
