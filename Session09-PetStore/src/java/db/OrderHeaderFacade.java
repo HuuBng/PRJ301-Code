@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import utils.Hash;
+import utils.Hasher;
 
 /**
  *
@@ -22,7 +22,7 @@ public class OrderHeaderFacade {
 
     public void insert(OrderHeader orderHeader) throws ClassNotFoundException, SQLException {
         //Tao ket noi database
-        Connection con = DbContext.getConnection();
+        Connection con = DBContext.getConnection();
 
         try {
             //Bắt đầu transaction
