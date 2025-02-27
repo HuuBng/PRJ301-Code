@@ -23,7 +23,13 @@
                     </h1>
 
                     <p class="float-end">
-                        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                        <c:if test="${account==null}">
+                            <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                        </c:if>
+                        <c:if test="${account!=null}">
+                            Welcome ${account.fullName} |
+                            <a href="" class="btn">Logout</a>
+                        </c:if>
 
                         <a href="<c:url value="/cart/index.do" />" class="btn">
                             <c:if test="${cart.total == 0}">
