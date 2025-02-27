@@ -28,7 +28,7 @@
                         </c:if>
                         <c:if test="${account!=null}">
                             <span class="btn">Welcome ${account.fullName}</span> |
-                            <a href="" class="btn">Logout</a>
+                            <a href="<c:url value="/account/logout.do" />" class="btn">Logout</a>
                         </c:if>
 
                         <a href="<c:url value="/cart/index.do" />" class="btn">

@@ -32,6 +32,9 @@ public class AccountController extends HttpServlet {
             case "login":
                 login(request, response);
                 break;
+            case "logout":
+                logout(request, response);
+                break;
         }
     }
 
@@ -52,7 +55,7 @@ public class AccountController extends HttpServlet {
 
                 // luu account vao session
                 session.setAttribute("account", account);
-                
+
             } else {
                 // If login sai
 //                request.setAttribute("message", "Please check your email and password!!!");
@@ -66,6 +69,18 @@ public class AccountController extends HttpServlet {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 
         }
+    }
+
+    protected void logout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Lay tham chieu cua doi tuong session
+        HttpSession session = request.getSession();
+
+        // Huy session
+        session.invalidate();
+
+        // Cho hien home page
+        request.getRequestDispatcher("/").forward(request, response);
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
