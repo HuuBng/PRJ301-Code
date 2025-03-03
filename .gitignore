@@ -1,4 +1,4 @@
-*.xml
+
 *.properties
 *.MF
 /Session1-Basic/nbproject/private/
@@ -76,3 +76,4 @@
 /Session11-JSP/build/
 /Session12-Include/nbproject/private/
 /Session12-Include/build/
+/Session13-Init-Param/nbproject/private/
