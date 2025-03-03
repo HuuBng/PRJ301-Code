@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "ProductController", urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
@@ -41,18 +42,35 @@ public class ProductController extends HttpServlet {
         try {
             int pageSize = 6;
             // Lay tham so page
+
+            HttpSession session = request.getSession();
+
+            Integer page = (Integer) session.getAttribute("page");
+            if (page == null) {
+                page = 1;
+                session.setAttribute("page", page);
+            }
+
             String spage = request.getParameter("page");
-            int page = (spage == null) ? 1 : (Integer.parseInt(spage) <= 0) ? 1 : Integer.parseInt(spage);
+            if (spage != null) {
+                page = Integer.parseInt(spage);
+
+                // Luu page vao request
+                request.setAttribute("page", page);
+
+            }
+
             //doc table toy
             ProductFacade pf = new ProductFacade();
             List<Product> list = pf.select(page, pageSize);
-            // Luu page vao request
-            request.setAttribute("page", page);
+
             // Luu totalPage vao request
             int totalPage = (int) Math.ceil(pf.count() / pageSize * 1.0);
             request.setAttribute("totalPage", totalPage);
+
             //luu list vao request
             request.setAttribute("list", list);
+
             //forward request va response cho view 
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
         } catch (SQLException ex) {
