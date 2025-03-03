@@ -56,7 +56,7 @@ public class ProductController extends HttpServlet {
                 page = Integer.parseInt(spage);
 
                 // Luu page vao request
-                request.setAttribute("page", page);
+                session.setAttribute("page", page);
 
             }
 
