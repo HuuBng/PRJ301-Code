@@ -17,5 +17,9 @@
         <hr/>
         Email: ${user.email}<br/>
         Full Name: ${user.fullName}<br/>
+        <hr/>
+<!--        Not recommended-->
+        Email: ${user["email"]}<br/>
+        Full Name: ${user["fullName"]}<br/>
     </body>
 </html>
