@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	 version="3.1">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>name</param-name>
+        <param-value>FPT University</param-value>
+    </context-param>
+    <context-param>
+        <param-name>address</param-name>
+        <param-value>District 9, HCMC</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>s2</servlet-name>
+        <servlet-class>s2</servlet-class>
+        <init-param>
+            <param-name>Address</param-name>
+            <param-value>District 5, HCMC</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Name</param-name>
+            <param-value>John Smith</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>s2</servlet-name>
+        <url-pattern>/s2</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
