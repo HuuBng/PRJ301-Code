@@ -7,6 +7,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>forTokens</h1>
+        <hr/>
+        <c:forTokens var="word" items="I am learning about JSTL" delims=" " >
+            ${word} <br/>
+        </c:forTokens>
     </body>
 </html>
