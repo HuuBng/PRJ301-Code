@@ -24,5 +24,8 @@
         <h1><fmt:message key="home.welcome"/></h1>
         <fmt:message key="home.flag" var="flag" />
         <img src="images/${flag}" /> 
+        
+        <br/><br/>
+        <a href="info.jsp"><fmt:message key="home.info"/></a>
     </body>
 </html>
