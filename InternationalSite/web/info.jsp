@@ -7,7 +7,7 @@
 <br/>
 <fmt:message key="info.fullname"/> John Smith <br/>
 <fmt:message key="info.dob"/> <fmt:formatDate value="<%= new Date()%>"/> <br/>
-<fmt:message key="info.salary"/> <fmt:formatNumber value="<%= String.valueOf(Long.MAX_VALUE)%>" type="currency"/>
+<fmt:message key="info.salary"/> <fmt:formatNumber value="<%= String.valueOf(Float.MAX_VALUE)%>" type="currency"/>
 
 <br/><br/>
 <a href="<c:url value="/" />"><fmt:message key="info.homepage"/></a>
