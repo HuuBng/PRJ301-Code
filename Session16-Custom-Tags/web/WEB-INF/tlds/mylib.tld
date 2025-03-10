@@ -59,4 +59,9 @@
       <type>java.lang.String</type>
     </attribute>
   </tag>
+  <tag>
+    <name>mt2</name>
+    <tag-class>taghandlers.multiTableHandler</tag-class>
+    <body-content>empty</body-content>
+  </tag>
 </taglib>
