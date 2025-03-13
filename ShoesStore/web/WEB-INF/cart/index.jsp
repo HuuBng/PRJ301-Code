@@ -18,7 +18,7 @@
             <td>${loop.count}</td>
             <td><img src="<c:url value="/pictures/${item.id}.jpg"/>" height="60px"/></td>
             <td>${item.shoes.name}</td>
-            
+
             <td style="text-align: right">
                 ${item.size}
             </td>
@@ -53,7 +53,11 @@
         <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
     </tr>
 </table>
-<a href="<c:url value="/cart/checkout.do" />" >Checkout</a>
+<form action="<c:url value='/cart/checkout.do' />">
+    Address: <input type="text" required="" name="address"/> <br/>
+    Phone Number: <input type="text" required="" name="phone" pattern="[0-9]{8,}" title="Phone number"/> <br/>
+    <button type="submit">Checkout</button>
+</form>
 <script>
     $(document).ready(function () {
         $(".update").click(function () {

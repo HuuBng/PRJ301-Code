@@ -7,6 +7,8 @@ import db.Shoes;
 import db.ShoesFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javafx.scene.control.Alert;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -133,13 +135,20 @@ public class CartController extends HttpServlet {
                 //Chuyen ve trang /cart/index.do va hien hop thoai login
                 response.sendRedirect(request.getContextPath() + "/cart/index.do?login=1");
             } else {
-                cart.checkout(account.getId());
-                //Xoa cart
-                cart.empty();
-                //Quay ve trang chu & thong bao checkout thanh cong
-//                Alert alert = new Alert("success", "Checkout successfully", "Thank you for your order.");
-//                session.setAttribute("alert", alert);
-                response.sendRedirect(request.getContextPath() + "?alert=1");
+                String address = request.getParameter("address").trim();
+                String phone = request.getParameter("phone").trim();
+
+                if (!cart.isEmpty()) {
+                    // Proceed with checkout
+                    cart.checkout(account.getId(), address, phone);
+                    cart.empty();
+                } else {
+                    request.getRequestDispatcher("/").forward(request, response);
+                    return;
+                }
+
+                // Forward
+                request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

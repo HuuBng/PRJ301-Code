@@ -19,24 +19,20 @@ public class OrderDetail {
     private int quantity;
     private double price;
     private double discount;
-
+    private String address;
+    private String phone;
+    private int size;
     public OrderDetail() {
     }
 
-    public OrderDetail(int shoesId, int quantity, double price, double discount) {
+    public OrderDetail(int shoesId, int quantity, double price, double discount, String address, String phone, int size) {
         this.shoesId = shoesId;
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
-    }
-
-    public OrderDetail(int id, int orderHeaderId, int shoesId, int quantity, double price, double discount) {
-        this.id = id;
-        this.orderHeaderId = orderHeaderId;
-        this.shoesId = shoesId;
-        this.quantity = quantity;
-        this.price = price;
-        this.discount = discount;
+        this.address = address;
+        this.phone = phone;
+        this.size = size;
     }
 
     public int getId() {
@@ -87,4 +83,29 @@ public class OrderDetail {
         this.discount = discount;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+   
 }

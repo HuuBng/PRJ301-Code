@@ -79,6 +79,7 @@
 /Session13-Init-Param/build/
 /ShoesStore/nbproject/private/
 /ShoesStore/build/
+/ShoesStore/dist/
 /Session14-EL/nbproject/private/
 /Session14-EL/build/
 /Session15-JSTL/nbproject/private/
@@ -90,3 +91,4 @@
 /Session17-Filters/nbproject/private/
 /Session17-Filters/build/
 /Session18-Filters/nbproject/private/
+/ShoesStore/dist

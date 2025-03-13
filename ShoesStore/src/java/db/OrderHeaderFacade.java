@@ -27,13 +27,14 @@ public class OrderHeaderFacade {
             //Bắt đầu transaction
             con.setAutoCommit(false);
             //Insert data vào table OrderHeader
-            PreparedStatement stm = con.prepareStatement("insert into OrderHeader values(?, ?, ?, ?)",
+            PreparedStatement stm = con.prepareStatement(
+                    "INSERT INTO OrderHeader VALUES (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             stm.setString(1, sdf.format(orderHeader.getDate()));
-            stm.setString(2, orderHeader.getStatus());
-            stm.setInt(3, orderHeader.getCustomerId());
-            stm.setInt(4, orderHeader.getEmployeeId());
+            stm.setString(3, orderHeader.getStatus());
+            stm.setInt(2, orderHeader.getCustomerId());
             int count = stm.executeUpdate();
 
             //Lấy account id được phát sinh tự động
@@ -46,13 +47,16 @@ public class OrderHeaderFacade {
             }
 
             //Insert data vào table OrderDetail
-            stm = con.prepareStatement("insert into OrderDetail values(?, ?, ?, ?, ?)");
+            stm = con.prepareStatement("insert into OrderDetail values(?, ?, ?, ?, ?, ?, ?, ?)");
             for (OrderDetail orderDetail : orderHeader.getDetails()) {
                 stm.setInt(1, orderHeader.getId());
                 stm.setInt(2, orderDetail.getShoesId());
                 stm.setInt(3, orderDetail.getQuantity());
                 stm.setDouble(4, orderDetail.getPrice());
                 stm.setDouble(5, orderDetail.getDiscount());
+                stm.setString(6, orderDetail.getAddress());
+                stm.setString(7, orderDetail.getPhone());
+                stm.setInt(8, orderDetail.getSize());
                 count = stm.executeUpdate();
             }
             //Kết thúc transaction
@@ -61,6 +65,7 @@ public class OrderHeaderFacade {
             try {
                 //Undo transaction
                 con.rollback();
+                System.out.println("ROLL BACK");
             } catch (SQLException ex1) {
                 throw ex1;
             }

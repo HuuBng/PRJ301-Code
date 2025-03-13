@@ -60,18 +60,21 @@ public class Cart {
         }
     }
 
-    public void checkout(int customerId) throws ClassNotFoundException, SQLException {
+    public void checkout(int customerId, String address, String phone) throws ClassNotFoundException, SQLException {
         Date date = new Date();
-        int employeeId = 2;
-        String status = "NEW";//NEW->SHIPPING->CANCEL,CLOSE
-        OrderHeader oh = new OrderHeader(date, status, customerId, employeeId);
-
+        String status = "NEW";//NEW->SHIPPING->COMPLETED
+        OrderHeader oh = new OrderHeader(date, status, customerId);
+        
         for (Item item : this.getItems()) {
-            OrderDetail od = new OrderDetail(item.getShoes().getId(), item.getQuantity(), item.getShoes().getPrice(), item.getShoes().getDiscount());
+            OrderDetail od = new OrderDetail(item.getShoes().getId(), item.getQuantity(), item.getShoes().getPrice(), item.getShoes().getDiscount(), address, phone, Integer.parseInt(item.getSize()));
             oh.add(od);
         }
 
         OrderHeaderFacade ohf = new OrderHeaderFacade();
         ohf.insert(oh);
+    }
+    
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 }

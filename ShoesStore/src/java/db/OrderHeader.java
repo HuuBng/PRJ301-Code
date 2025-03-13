@@ -19,27 +19,24 @@ public class OrderHeader {
     private Date date;
     private String status;
     private int customerId;
-    private int employeeId;
     private List<OrderDetail> details = null;
 
     public OrderHeader() {
         this.details = new ArrayList<>();
     }
 
-    public OrderHeader(Date date, String status, int customerId, int employeeId) {
+    public OrderHeader(Date date, String status, int customerId) {
         this.date = date;
         this.status = status;
         this.customerId = customerId;
-        this.employeeId = employeeId;
         this.details = new ArrayList<>();
     }
 
-    public OrderHeader(int id, Date date, String status, int customerId, int employeeId) {
+    public OrderHeader(int id, Date date, String status, int customerId) {
         this.id = id;
         this.date = date;
         this.status = status;
         this.customerId = customerId;
-        this.employeeId = employeeId;
         this.details = new ArrayList<>();
     }
 
@@ -75,13 +72,6 @@ public class OrderHeader {
         this.customerId = customerId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
 
     public List<OrderDetail> getDetails() {
         return details;
