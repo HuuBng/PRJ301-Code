@@ -133,7 +133,7 @@ public class CartController extends HttpServlet {
                 //Lưu url hiện tại để quay trở lại sau khi login
                 //session.setAttribute("oldUrl", "/cart/checkout.do");
                 //Chuyen ve trang /cart/index.do va hien hop thoai login
-                response.sendRedirect(request.getContextPath() + "/cart/index.do?login=1");
+//                response.sendRedirect(request.getContextPath() + "/cart/index.do?login=1");
             } else {
                 String address = request.getParameter("address").trim();
                 String phone = request.getParameter("phone").trim();

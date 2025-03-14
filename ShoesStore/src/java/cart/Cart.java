@@ -60,10 +60,10 @@ public class Cart {
         }
     }
 
-    public void checkout(int customerId, String address, String phone) throws ClassNotFoundException, SQLException {
+    public void checkout(int accountId, String address, String phone) throws ClassNotFoundException, SQLException {
         Date date = new Date();
         String status = "NEW";//NEW->SHIPPING->COMPLETED
-        OrderHeader oh = new OrderHeader(date, status, customerId);
+        OrderHeader oh = new OrderHeader(date, status, accountId);
         
         for (Item item : this.getItems()) {
             OrderDetail od = new OrderDetail(item.getShoes().getId(), item.getQuantity(), item.getShoes().getPrice(), item.getShoes().getDiscount(), address, phone, Integer.parseInt(item.getSize()));

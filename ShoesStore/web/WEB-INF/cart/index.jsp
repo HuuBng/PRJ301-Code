@@ -53,11 +53,24 @@
         <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
     </tr>
 </table>
-<form action="<c:url value='/cart/checkout.do' />">
-    Address: <input type="text" required="" name="address"/> <br/>
-    Phone Number: <input type="text" required="" name="phone" pattern="[0-9]{8,}" title="Phone number"/> <br/>
-    <button type="submit">Checkout</button>
+
+<form <c:if test="${not empty sessionScope.account}">action="<c:url value='/cart/checkout.do' />"</c:if> method="POST">
+        Address: <input type="text" required="" name="address"/> <br/>
+        Phone Number: <input type="text" required="" name="phone" minlength="8" maxlength="11" pattern="[0-9]{8,11}" title="Phone number"/> <br/>
+
+        <button class="btn btn-primary"
+        <c:choose>
+            <c:when test="${empty sessionScope.account}">
+                type="button" data-bs-toggle="modal" data-bs-target="#loginModal"
+            </c:when>
+            <c:otherwise> 
+                type="submit"
+            </c:otherwise>
+        </c:choose>>
+        Checkout
+    </button>
 </form>
+
 <script>
     $(document).ready(function () {
         $(".update").click(function () {

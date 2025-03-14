@@ -34,7 +34,7 @@ public class OrderHeaderFacade {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             stm.setString(1, sdf.format(orderHeader.getDate()));
             stm.setString(3, orderHeader.getStatus());
-            stm.setInt(2, orderHeader.getCustomerId());
+            stm.setInt(2, orderHeader.getAccountId());
             int count = stm.executeUpdate();
 
             //Lấy account id được phát sinh tự động

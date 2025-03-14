@@ -18,25 +18,25 @@ public class OrderHeader {
     private int id;
     private Date date;
     private String status;
-    private int customerId;
+    private int accountId;
     private List<OrderDetail> details = null;
 
     public OrderHeader() {
         this.details = new ArrayList<>();
     }
 
-    public OrderHeader(Date date, String status, int customerId) {
+    public OrderHeader(Date date, String status, int accountId) {
         this.date = date;
         this.status = status;
-        this.customerId = customerId;
+        this.accountId = accountId;
         this.details = new ArrayList<>();
     }
 
-    public OrderHeader(int id, Date date, String status, int customerId) {
+    public OrderHeader(int id, Date date, String status, int accountId) {
         this.id = id;
         this.date = date;
         this.status = status;
-        this.customerId = customerId;
+        this.accountId = accountId;
         this.details = new ArrayList<>();
     }
 
@@ -64,12 +64,12 @@ public class OrderHeader {
         this.status = status;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
 

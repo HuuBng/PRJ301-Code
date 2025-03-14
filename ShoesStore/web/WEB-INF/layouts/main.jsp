@@ -27,18 +27,18 @@
 
                     <p class="float-end">
                         <c:choose>
-    <c:when test="${empty sessionScope.account}">
-        <!-- Hi?n th? nút Login và Register -->
-        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
-        <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-    </c:when>
-    <c:otherwise>
-        <!-- Hi?n th? thông tin ng??i dùng và nút Logout -->
-        <span class="btn">Welcome ${account.fullname}</span> |
-                            <a href="<c:url value="/account/logout.do" />" class="btn">Logout</a>
-    </c:otherwise>
-</c:choose>
-                        
+                            <c:when test="${empty sessionScope.account}">
+                                <!-- Hien thi nút Login và Register -->
+                                <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a> |
+                                <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                            </c:when>
+                            <c:otherwise>
+                                <!-- Hien thi thông tin nguoi dùng và nút Logout -->
+                                <span class="btn">Welcome ${account.fullname}</span> |
+                                <a href="<c:url value="/account/logout.do" />" class="btn">Logout</a>
+                            </c:otherwise>
+                        </c:choose>
+
 
                         <a href="<c:url value="/cart/index.do" />" class="btn">
                             <c:if test="${cart.total == 0}">
@@ -74,7 +74,7 @@
 <div class="modal" id="loginModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<c:url value="/account/login.do" />">
+            <form action="<c:url value="/account/login.do" />" method="POST">
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Login</h4>
@@ -107,13 +107,12 @@
         </div>
     </div>
 </div>
-                
-                
+
+
 <div class="modal" id="registerModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<c:url value='/account' />" method="POST">
-            <input type="hidden" name="action" value="register">
+            <form action="<c:url value='/account/register.do' />" method="POST">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -135,7 +134,7 @@
                         <label for="fullName" class="form-label">FullName:</label>
                         <input type="text" class="form-control" id="fullName" placeholder="Enter full name" name="fullName">
                     </div>
-                    
+
                 </div>
 
                 <!-- Modal footer -->
@@ -147,31 +146,31 @@
         </div>
     </div>
 </div>
-            
-            <c:if test="${not empty message}">
-                <div class="toast-container position-fixed top-0 end-0 p-3">
-                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
-                        <div class="toast-header">
-                            <strong class="me-auto">Notification</strong>
-                            <small>Just now</small>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            ${message}
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    document.addEventListener('DOMContentLoaded', function() {
-                        var toastEl = document.getElementById('liveToast');
-                        var toast = new bootstrap.Toast(toastEl);
-                        toast.show();
-                    });
-                </script>
-            </c:if>
-                
-            
 
-                
-                
+<c:if test="${not empty message}">
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                ${message}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var toastEl = document.getElementById('liveToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
+    </script>
+</c:if>
+
+
+
+
+
 

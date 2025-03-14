@@ -26,16 +26,8 @@ public class AccountController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action;
-        try{
-            action = request.getAttribute("action").toString();
-        }
-        catch (Exception e){
-            action = request.getParameter("action");
-        }
-
-
-
+        String action = request.getAttribute("action").toString();
+        
         switch (action) {
             case "login":
                 login(request, response);
@@ -50,32 +42,32 @@ public class AccountController extends HttpServlet {
     }
 
     protected void login(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        AccountFacade af = new AccountFacade();
-        Account account = af.login(email, password);
+            throws ServletException, IOException {
+        try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            AccountFacade af = new AccountFacade();
+            Account account = af.login(email, password);
 
-        if (account != null) {
-            // Nếu đăng nhập đúng, lưu account vào session và chuyển hướng về trang chủ
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-            response.sendRedirect(request.getContextPath() + "/");
-        } else {
-            // Nếu đăng nhập sai, set thông báo lỗi và forward về login.jsp
-            request.setAttribute("message", "Wrong email and password!!!");
+            if (account != null) {
+                // Nếu đăng nhập đúng, lưu account vào session và chuyển hướng về trang chủ
+                HttpSession session = request.getSession();
+                request.setAttribute("message", "Login successfully!!!");
+                session.setAttribute("account", account);
+                request.getRequestDispatcher("/").forward(request, response);
+            } else {
+                // Nếu đăng nhập sai, set thông báo lỗi và forward
+                request.setAttribute("message", "Wrong email and password!!!");
+                request.setAttribute("openRegisterModal", true);
+                request.getRequestDispatcher("/").forward(request, response);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", ex.getMessage());
             request.setAttribute("openRegisterModal", true);
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/").forward(request, response);
         }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        request.setAttribute("message", ex.getMessage());
-        request.setAttribute("openRegisterModal", true);
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
-}
-
 
     protected void logout(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -90,34 +82,34 @@ public class AccountController extends HttpServlet {
     }
 
     protected void register(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String fullName = request.getParameter("fullName");
+            throws ServletException, IOException {
+        try {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            String fullName = request.getParameter("fullName");
 
-        AccountFacade af = new AccountFacade();
-        boolean success = af.register(email, password, fullName);
-        if (success) {
-            Account account = af.login(email, password);  
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-            response.sendRedirect(request.getContextPath() + "/");
-        } else {
-        
-            request.setAttribute("message", "Email already exists! Please use another email.");
-            // Đặt cờ để mở modal đăng ký trong trang chủ
+            AccountFacade af = new AccountFacade();
+            boolean success = af.register(email, password, fullName);
+            if (success) {
+                Account account = af.login(email, password);
+                HttpSession session = request.getSession();
+                session.setAttribute("account", account);
+                request.setAttribute("message", "Register successfully!!!");
+                request.getRequestDispatcher("/").forward(request, response);
+            } else {
+
+                request.setAttribute("message", "Email already exists! Please use another email.");
+                // Đặt cờ để mở modal đăng ký trong trang chủ
+                request.setAttribute("openRegisterModal", true);
+                request.getRequestDispatcher("/").forward(request, response);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", "An error occurred: " + ex.getMessage());
             request.setAttribute("openRegisterModal", true);
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/").forward(request, response);
         }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        request.setAttribute("message", "An error occurred: " + ex.getMessage());
-        request.setAttribute("openRegisterModal", true);
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
-}
-
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

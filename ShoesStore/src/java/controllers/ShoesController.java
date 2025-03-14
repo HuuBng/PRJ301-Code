@@ -50,6 +50,23 @@ public class ShoesController extends HttpServlet {
 
         }
     }
+    
+    private Integer getPage(HttpServletRequest request, HttpServletResponse response) {
+        Integer page = (Integer) request.getAttribute("page");
+            if (page == null) {
+                page = 1;
+                request.setAttribute("page", page);
+            }
+
+            String spage = request.getParameter("page");
+            if (spage != null) {
+                page = Integer.parseInt(spage);
+
+                // Luu page vao request
+                request.setAttribute("page", page);
+            }
+            return page;
+    }
 
     protected void index(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -59,20 +76,7 @@ public class ShoesController extends HttpServlet {
 
             HttpSession session = request.getSession();
 
-            Integer page = (Integer) session.getAttribute("page");
-            if (page == null) {
-                page = 1;
-                session.setAttribute("page", page);
-            }
-
-            String spage = request.getParameter("page");
-            if (spage != null) {
-                page = Integer.parseInt(spage);
-
-                // Luu page vao request
-                session.setAttribute("page", page);
-
-            }
+            Integer page = getPage(request, response);
 
             //doc table toy
             ShoesFacade pf = new ShoesFacade();
@@ -120,20 +124,7 @@ public class ShoesController extends HttpServlet {
             int pageSize = 6;
             // Lay tham so page
 
-            Integer page = (Integer) request.getAttribute("page");
-            if (page == null) {
-                page = 1;
-                request.setAttribute("page", page);
-            }
-
-            String spage = request.getParameter("page");
-            if (spage != null) {
-                page = Integer.parseInt(spage);
-
-                // Luu page vao request
-                request.setAttribute("page", page);
-
-            }
+            Integer page = getPage(request, response);
 
             String brand = request.getParameter("brand");
             ShoesFacade sf = new ShoesFacade();
@@ -164,20 +155,7 @@ public class ShoesController extends HttpServlet {
             int pageSize = 6;
             // Lay tham so page
 
-            Integer page = (Integer) request.getAttribute("page");
-            if (page == null) {
-                page = 1;
-                request.setAttribute("page", page);
-            }
-
-            String spage = request.getParameter("page");
-            if (spage != null) {
-                page = Integer.parseInt(spage);
-
-                // Luu page vao request
-                request.setAttribute("page", page);
-
-            }
+            Integer page = getPage(request, response);
 
             // Lay price range
             int min_price;
@@ -242,20 +220,7 @@ public class ShoesController extends HttpServlet {
             int pageSize = 6;
             // Lay tham so page
 
-            Integer page = (Integer) request.getAttribute("page");
-            if (page == null) {
-                page = 1;
-                request.setAttribute("page", page);
-            }
-
-            String spage = request.getParameter("page");
-            if (spage != null) {
-                page = Integer.parseInt(spage);
-
-                // Luu page vao request
-                request.setAttribute("page", page);
-
-            }
+            Integer page = getPage(request, response);
 
             String keyword = request.getParameter("keyword");
             ShoesFacade sf = new ShoesFacade();
