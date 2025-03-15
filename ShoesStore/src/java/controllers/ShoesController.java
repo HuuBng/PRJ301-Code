@@ -5,7 +5,9 @@ import db.ShoesFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -275,10 +277,10 @@ public class ShoesController extends HttpServlet {
             switch (op) {
                 case "create":
                     //lay thong tin tu user
-                    String name = request.getParameter("name");
-                    String brand = request.getParameter("brand");
-                    String category = request.getParameter("category");
-                    String size = request.getParameter("size");
+                    String name = request.getParameter("name").trim();
+                    String brand = request.getParameter("brand").trim();
+                    String category = request.getParameter("category").trim();
+                    String size = request.getParameter("size").replace(".", ",").replace(" ", "");
                     int price = Integer.parseInt(request.getParameter("price"));
                     Double discount = Double.parseDouble(request.getParameter("discount"));
                     // tao doi tuong shoes
@@ -292,20 +294,37 @@ public class ShoesController extends HttpServlet {
                     if (!category.isEmpty()) {
                         shoes.setCategory(category);
                     }
-                    StringBuilder sizeBuilder = new StringBuilder();
+
+                    // Input and sort shoes size
+                    // Use a List to hold the integer values
+                    List<Integer> sizeList = new ArrayList<>();
+
                     if (size != null && !size.trim().isEmpty()) {
                         String[] sizeArray = size.split(",");
                         for (String sa : sizeArray) {
                             sa = sa.trim();
-                            if (!sa.isEmpty() && sa.matches("\\d+")) {  // Only positive numbers
-                                if (sizeBuilder.length() > 0) {
-                                    sizeBuilder.append(",");  // Add comma between sizes
-                                }
-                                sizeBuilder.append(sa);
+                            // Check that the string is not empty and contains only digits (i.e., positive numbers)
+                            if (!sa.isEmpty() && sa.matches("\\d+")) {
+                                // Parse and add the number to the list
+                                sizeList.add(Integer.parseInt(sa));
                             }
                         }
                     }
-                    if (sizeBuilder.length() > 0) {
+
+                    // If there are valid numbers, sort them and build the output string
+                    if (!sizeList.isEmpty()) {
+                        // Sort the list in ascending order
+                        Collections.sort(sizeList);
+
+                        // Build the output string in the format [number1,number2,...]
+                        StringBuilder sizeBuilder = new StringBuilder();
+                        for (int i = 0; i < sizeList.size(); i++) {
+                            if (i > 0) {
+                                sizeBuilder.append(",");
+                            }
+                            sizeBuilder.append(sizeList.get(i));
+                        }
+                        // Set the sorted size string with enclosing square brackets
                         shoes.setSize("[" + sizeBuilder.toString() + "]");
                     }
 
@@ -322,7 +341,7 @@ public class ShoesController extends HttpServlet {
                     request.getRequestDispatcher("/").forward(request, response);
                     break;
                 case "cancel":
-                    request.getRequestDispatcher("/shoes/index.do").forward(request, response);
+                    request.getRequestDispatcher("/").forward(request, response);
                     break;
             }
         } catch (Exception ex) {
@@ -359,32 +378,33 @@ public class ShoesController extends HttpServlet {
     }
 
     protected void edit(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    try{
-     int id=Integer.parseInt(request.getParameter("id"));
-     ShoesFacade sf=new ShoesFacade();
-     Shoes shoes=sf.read(id);
-     //luu shoes vao request truyen cho view
-     request.setAttribute("shoes", shoes);
-         List<Shoes> list=sf.select();
-         request.setAttribute("list", list);
+            throws ServletException, IOException {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            ShoesFacade sf = new ShoesFacade();
+            Shoes shoes = sf.read(id);
+            shoes.setSize(shoes.getSize().replaceAll("[\\[\\]\\s]", ""));
+            //luu shoes vao request truyen cho view
+            request.setAttribute("shoes", shoes);
+            List<Shoes> list = sf.select();
+            request.setAttribute("list", list);
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-     }catch(Exception ex){
-         ex.printStackTrace();
-     }
-}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
-protected void edit_handler(HttpServletRequest request, HttpServletResponse response)
+    protected void edit_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             String op = request.getParameter("op");
             switch (op) {
                 case "update":
-                    int id=Integer.parseInt(request.getParameter("id"));
-                    String name = request.getParameter("name");
-                    String brand = request.getParameter("brand");
-                    String category = request.getParameter("category");
-                    String size = request.getParameter("size");
+                    int id = Integer.parseInt(request.getParameter("id").trim());
+                    String name = request.getParameter("name").trim();
+                    String brand = request.getParameter("brand").trim();
+                    String category = request.getParameter("category").trim();
+                    String size = request.getParameter("size").replaceAll("[\\[\\]\\s]", "").replace(".", ",");
                     int price = Integer.parseInt(request.getParameter("price"));
                     Double discount = Double.parseDouble(request.getParameter("discount"));
                     // tao doi tuong shoes
@@ -399,20 +419,37 @@ protected void edit_handler(HttpServletRequest request, HttpServletResponse resp
                     if (!category.isEmpty()) {
                         shoes.setCategory(category);
                     }
-                    StringBuilder sizeBuilder = new StringBuilder();
+                    
+                    // Input and sort shoes size
+                    // Use a List to hold the integer values
+                    List<Integer> sizeList = new ArrayList<>();
+
                     if (size != null && !size.trim().isEmpty()) {
                         String[] sizeArray = size.split(",");
                         for (String sa : sizeArray) {
                             sa = sa.trim();
-                            if (!sa.isEmpty() && sa.matches("\\d+")) {  // Only positive numbers
-                                if (sizeBuilder.length() > 0) {
-                                    sizeBuilder.append(",");  // Add comma between sizes
-                                }
-                                sizeBuilder.append(sa);
+                            // Check that the string is not empty and contains only digits (i.e., positive numbers)
+                            if (!sa.isEmpty() && sa.matches("\\d+")) {
+                                // Parse and add the number to the list
+                                sizeList.add(Integer.parseInt(sa));
                             }
                         }
                     }
-                    if (sizeBuilder.length() > 0) {
+
+                    // If there are valid numbers, sort them and build the output string
+                    if (!sizeList.isEmpty()) {
+                        // Sort the list in ascending order
+                        Collections.sort(sizeList);
+
+                        // Build the output string in the format [number1,number2,...]
+                        StringBuilder sizeBuilder = new StringBuilder();
+                        for (int i = 0; i < sizeList.size(); i++) {
+                            if (i > 0) {
+                                sizeBuilder.append(",");
+                            }
+                            sizeBuilder.append(sizeList.get(i));
+                        }
+                        // Set the sorted size string with enclosing square brackets
                         shoes.setSize("[" + sizeBuilder.toString() + "]");
                     }
 
@@ -439,8 +476,6 @@ protected void edit_handler(HttpServletRequest request, HttpServletResponse resp
             edit(request, response);
         }
     }
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

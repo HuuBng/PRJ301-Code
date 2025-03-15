@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import db.DBContext;
@@ -15,10 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author PHT
- */
 public class OrderHeaderFacade {
 
     public void insert(OrderHeader orderHeader) throws ClassNotFoundException, SQLException {
@@ -77,21 +68,22 @@ public class OrderHeaderFacade {
         //Dong ket noi database
         con.close();
     }
+
     public void update(OrderHeader orderheader) throws SQLException {
         //Tao connection
         Connection con = DBContext.getConnection();
         // Tao doi tuong stm va chuan bi cau lenh SQL
         PreparedStatement stm = con.prepareStatement("UPDATE OrderHeader SET  status=? WHERE id=?");
         // Cung cap gia tri cho cac tham so
-           stm.setString(1, orderheader.getStatus());
-       stm.setInt(2, orderheader.getId());
+        stm.setString(1, orderheader.getStatus());
+        stm.setInt(2, orderheader.getId());
         // Thuc hien lenh SQL
         int count = stm.executeUpdate();
 
         // Close connection
         con.close();
     }
-    
+
     public OrderHeader read(int id) throws SQLException {
         //Tao connection
         Connection con = DBContext.getConnection();
@@ -105,19 +97,19 @@ public class OrderHeaderFacade {
         OrderHeader oh = new OrderHeader();
 
         while (rs.next()) {
-     
-           oh.setId(rs.getInt("id"));
-           oh.setDate(rs.getDate("date"));
-           oh.setAccountId(rs.getInt("accountId"));
-           oh.setStatus(rs.getString("status"));
+
+            oh.setId(rs.getInt("id"));
+            oh.setDate(rs.getDate("date"));
+            oh.setAccountId(rs.getInt("accountId"));
+            oh.setStatus(rs.getString("status"));
         }
 
         // Close connection
         con.close();
         return oh;
-                
+
     }
-    
+
     public List<OrderHeader> select() throws SQLException {
         List<OrderHeader> list = null;
         //Tao connection
@@ -140,7 +132,7 @@ public class OrderHeaderFacade {
         con.close();
         return list;
     }
-    
+
     public OrderHeader select(int id) throws SQLException {
         OrderHeader orderheader = null;
         //Tao connection
@@ -163,6 +155,7 @@ public class OrderHeaderFacade {
         con.close();
         return orderheader;
     }
+
     public int count() throws SQLException {
 
         int rowCount = 0;

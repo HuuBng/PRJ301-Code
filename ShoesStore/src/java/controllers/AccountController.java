@@ -27,7 +27,7 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getAttribute("action").toString();
-        
+
         switch (action) {
             case "login":
                 login(request, response);

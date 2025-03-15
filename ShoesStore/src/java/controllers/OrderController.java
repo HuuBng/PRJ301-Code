@@ -73,7 +73,7 @@ public class OrderController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             OrderHeaderFacade ohf = new OrderHeaderFacade();
             OrderHeader oh = ohf.read(id);
-           
+
             request.setAttribute("oh", oh);
             List<OrderHeader> list = ohf.select();
             request.setAttribute("list", list);
@@ -94,14 +94,13 @@ public class OrderController extends HttpServlet {
                     OrderHeader oh = new OrderHeader();
                     oh.setId(id);
                     oh.setStatus(status);
-                    OrderHeaderFacade ohf=new OrderHeaderFacade();
-                      ohf.update(oh);
-                      request.getRequestDispatcher("/order/index.do").forward(request, response);
-                      break;
-       
-        case "cancel":
-            request.getRequestDispatcher("/order/index.do").forward(request, response);
-            break;
+                    OrderHeaderFacade ohf = new OrderHeaderFacade();
+                    ohf.update(oh);
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
+                case "cancel":
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
             }
         } catch (Exception ex) {
             ex.printStackTrace();

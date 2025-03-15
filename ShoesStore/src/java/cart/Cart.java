@@ -64,7 +64,7 @@ public class Cart {
         Date date = new Date();
         String status = "NEW";//NEW->SHIPPING->COMPLETED
         OrderHeader oh = new OrderHeader(date, status, accountId);
-        
+
         for (Item item : this.getItems()) {
             OrderDetail od = new OrderDetail(item.getShoes().getId(), item.getQuantity(), item.getShoes().getPrice(), item.getShoes().getDiscount(), address, phone, Integer.parseInt(item.getSize()));
             oh.add(od);
@@ -73,7 +73,7 @@ public class Cart {
         OrderHeaderFacade ohf = new OrderHeaderFacade();
         ohf.insert(oh);
     }
-    
+
     public boolean isEmpty() {
         return map.isEmpty();
     }

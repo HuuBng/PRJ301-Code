@@ -53,21 +53,21 @@
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-cart-plus"></i> Add to Cart
             </button>
-           
+
         </form>
+        <br/>
+        <c:if test="${account.role == 'ADMIN'}">
+            <!-- Nút chỉnh sửa -->
+            <a href="<c:url value='/shoes/edit.do?id=${shoes.id}'/>" 
+               style="text-decoration: none; font-weight: bold;">
+                <i class="bi bi-pencil"></i> Update
+            </a> |
             <!-- Nút xóa -->
-<c:if test="${account.role == 'ADMIN'}">
-            <br/>
             <a href="<c:url value='/shoes/delete.do?id=${shoes.id}'/>" 
                style="color: red; text-decoration: none; font-weight: bold;">
                 <i class="bi bi-trash"></i> Delete
-            </a>
+            </a>            
         </c:if>
-            <!-- Nút chỉnh sửa -->
-            <c:if test="${account.role=='ADMIN'}">
-                <br/>
-                <a href="<c:url value='/shoes/edit.do?id=${shoes.id}'/>"><i class="bi bi-pencil"></i>Update</a>
-            </c:if>
         <!-- Nút quay lại -->
         <p>
             <a href="<c:url value="/shoes/index.do" />" style="color: cyan; text-decoration: none;">

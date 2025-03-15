@@ -45,13 +45,13 @@ public class FrontController extends HttpServlet {
         // luu vao request 
         request.setAttribute("controller", controller);
         request.setAttribute("action", action);
-        
+
         // Tao cart
         getCart(request, response);
         //chuyen request cho controller tuong ung
         request.getRequestDispatcher(controller).forward(request, response);
     }
-    
+
     public Cart getCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -60,7 +60,7 @@ public class FrontController extends HttpServlet {
             cart = new Cart();
             session.setAttribute("cart", cart);
         }
-        
+
         return cart;
     }
 

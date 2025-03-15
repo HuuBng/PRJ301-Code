@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import java.security.NoSuchAlgorithmException;
@@ -11,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author ACER
- */
 public class AccountFacade {
 
     public Account login(String email, String password) throws SQLException {
@@ -45,6 +36,7 @@ public class AccountFacade {
         return account;
 
     }
+
     public boolean register(String email, String password, String fullName) throws SQLException {
         // Kiểm tra xem email đã tồn tại chưa
         if (isEmailExists(email)) {
@@ -53,25 +45,24 @@ public class AccountFacade {
 
         String query = "INSERT INTO account (Email, Password, Fullname, Role) VALUES (?, ?, ?, 'USER')";
 
-        
         try (Connection con = DBContext.getConnection();
-             PreparedStatement stm = con.prepareStatement(query)) {
-             
+                PreparedStatement stm = con.prepareStatement(query)) {
+
             stm.setString(1, email);
-            stm.setString(2, password); 
+            stm.setString(2, password);
             stm.setString(3, fullName);
-   
-            
+
             int rowsInserted = stm.executeUpdate();
             return rowsInserted > 0;  // Trả về true nếu đăng ký thành công
         }
     }
+
     private boolean isEmailExists(String email) throws SQLException {
         String query = "SELECT 1 FROM account WHERE Email = ?";
-        
+
         try (Connection con = DBContext.getConnection();
-             PreparedStatement stm = con.prepareStatement(query)) {
-             
+                PreparedStatement stm = con.prepareStatement(query)) {
+
             stm.setString(1, email);
             try (ResultSet rs = stm.executeQuery()) {
                 return rs.next(); // Nếu có kết quả, email đã tồn tại

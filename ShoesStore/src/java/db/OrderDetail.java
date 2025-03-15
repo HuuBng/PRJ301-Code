@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package db;
 
 import java.util.Date;
 
-/**
- *
- * @author PHT
- */
 public class OrderDetail {
 
     private int id;
@@ -22,6 +13,7 @@ public class OrderDetail {
     private String address;
     private String phone;
     private int size;
+
     public OrderDetail() {
     }
 
@@ -107,5 +99,4 @@ public class OrderDetail {
         this.size = size;
     }
 
-   
 }
