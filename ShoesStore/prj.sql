@@ -232,7 +232,7 @@ GO
 ALTER TABLE [dbo].[OrderHeader]  WITH CHECK ADD FOREIGN KEY([accountId])
 REFERENCES [dbo].[Account] ([Id])
 GO
-ALTER TABLE [dbo].[OrderHeader]  WITH CHECK ADD CHECK  (([status]='Completed' OR [status]='Shipping' OR [status]='New'))
+ALTER TABLE [dbo].[OrderHeader]  WITH CHECK ADD CHECK  (([status]='Paid' OR [status]='Shipping' OR [status]='New'))
 GO
 USE [master]
 GO

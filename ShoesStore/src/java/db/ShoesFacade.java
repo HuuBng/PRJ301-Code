@@ -138,13 +138,13 @@ public class ShoesFacade {
         con.close();
     }
 
-    public void delete(String id) throws SQLException {
+    public void delete(int id) throws SQLException {
         //Tao connection
         Connection con = DBContext.getConnection();
         // Tao doi tuong stm va chuan bi cau lenh SQL
-        PreparedStatement stm = con.prepareStatement("DELETE shoes WHERE id = ?");
+        PreparedStatement stm = con.prepareStatement("DELETE from shoes WHERE id = ?");
         // Cung cap gia tri cho cac tham so
-        stm.setString(1, id);
+        stm.setInt(1, id);
 
         // Thuc hien lenh SQL
         int count = stm.executeUpdate();
@@ -153,13 +153,13 @@ public class ShoesFacade {
         con.close();
     }
 
-    public Shoes read(String id) throws SQLException {
+    public Shoes read(int id) throws SQLException {
         //Tao connection
         Connection con = DBContext.getConnection();
         // Tao doi tuong stm va chuan bi cau lenh SQL
         PreparedStatement stm = con.prepareStatement("SELECT * FROM shoes WHERE id = ?");
         // Cung cap gia tri cho cac tham so
-        stm.setString(1, id);
+        stm.setInt(1, id);
 
         // Thuc hien lenh SQL
         ResultSet rs = stm.executeQuery();
@@ -193,6 +193,7 @@ public class ShoesFacade {
         stm.setString(4, shoes.getSize());
         stm.setInt(5, shoes.getPrice());
         stm.setDouble(6, shoes.getDiscount());
+        stm.setInt(7, shoes.getId());
         // Thuc hien lenh SQL
         int count = stm.executeUpdate();
 

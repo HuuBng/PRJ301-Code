@@ -47,25 +47,42 @@ public class ShoesController extends HttpServlet {
             case "search":
                 search(request, response);
                 break;
-
+            case "create":
+                create(request, response);
+                break;
+            case "create_handler":
+                create_handler(request, response);
+                break;
+            case "delete":
+                delete(request, response);
+                break;
+            case "delete_handler":
+                delete_handler(request, response);
+                break;
+            case "edit":
+                edit(request, response);
+                break;
+            case "edit_handler":
+                edit_handler(request, response);
+                break;
         }
     }
-    
+
     private Integer getPage(HttpServletRequest request, HttpServletResponse response) {
         Integer page = (Integer) request.getAttribute("page");
-            if (page == null) {
-                page = 1;
-                request.setAttribute("page", page);
-            }
+        if (page == null) {
+            page = 1;
+            request.setAttribute("page", page);
+        }
 
-            String spage = request.getParameter("page");
-            if (spage != null) {
-                page = Integer.parseInt(spage);
+        String spage = request.getParameter("page");
+        if (spage != null) {
+            page = Integer.parseInt(spage);
 
-                // Luu page vao request
-                request.setAttribute("page", page);
-            }
-            return page;
+            // Luu page vao request
+            request.setAttribute("page", page);
+        }
+        return page;
     }
 
     protected void index(HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +95,7 @@ public class ShoesController extends HttpServlet {
 
             Integer page = getPage(request, response);
 
-            //doc table toy
+            //doc table shoes
             ShoesFacade pf = new ShoesFacade();
             List<Shoes> list = pf.select(page, pageSize);
 
@@ -99,7 +116,7 @@ public class ShoesController extends HttpServlet {
     protected void detail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String id = request.getParameter("id");
+            int id = Integer.parseInt(request.getParameter("id"));
             ShoesFacade sf = new ShoesFacade();
             Shoes shoes = sf.read(id);
 
@@ -196,8 +213,8 @@ public class ShoesController extends HttpServlet {
             // Luu totalPage vao request
             int totalPage = (int) Math.ceil(sf.countByPrice(min_price, max_price) * 1.0 / pageSize);
             request.setAttribute("totalPage", totalPage);
-            
-            if(totalPage == 0) {
+
+            if (totalPage == 0) {
                 request.setAttribute("page", 0);
             }
 
@@ -237,6 +254,193 @@ public class ShoesController extends HttpServlet {
             ex.printStackTrace();
         }
     }
+
+    protected void create(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            ShoesFacade sf = new ShoesFacade();
+            List<Shoes> list = sf.select();
+            request.setAttribute("list", list);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    protected void create_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String op = request.getParameter("op");
+            switch (op) {
+                case "create":
+                    //lay thong tin tu user
+                    String name = request.getParameter("name");
+                    String brand = request.getParameter("brand");
+                    String category = request.getParameter("category");
+                    String size = request.getParameter("size");
+                    int price = Integer.parseInt(request.getParameter("price"));
+                    Double discount = Double.parseDouble(request.getParameter("discount"));
+                    // tao doi tuong shoes
+                    Shoes shoes = new Shoes();
+                    if (!name.isEmpty()) {
+                        shoes.setName(name);
+                    }
+                    if (!brand.isEmpty()) {
+                        shoes.setBrand(brand);
+                    }
+                    if (!category.isEmpty()) {
+                        shoes.setCategory(category);
+                    }
+                    StringBuilder sizeBuilder = new StringBuilder();
+                    if (size != null && !size.trim().isEmpty()) {
+                        String[] sizeArray = size.split(",");
+                        for (String sa : sizeArray) {
+                            sa = sa.trim();
+                            if (!sa.isEmpty() && sa.matches("\\d+")) {  // Only positive numbers
+                                if (sizeBuilder.length() > 0) {
+                                    sizeBuilder.append(",");  // Add comma between sizes
+                                }
+                                sizeBuilder.append(sa);
+                            }
+                        }
+                    }
+                    if (sizeBuilder.length() > 0) {
+                        shoes.setSize("[" + sizeBuilder.toString() + "]");
+                    }
+
+                    if (price > 0) {
+                        shoes.setPrice(price);
+                    }
+                    if (discount > 0 && discount < 100) {
+                        shoes.setDiscount(discount / 100);
+                    }
+
+                    //insert data
+                    ShoesFacade sf = new ShoesFacade();
+                    sf.create(shoes);
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
+                case "cancel":
+                    request.getRequestDispatcher("/shoes/index.do").forward(request, response);
+                    break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", "Khong duoc bo trong hoac size, price va discount phai la so duong");
+            request.getRequestDispatcher("/shoes/create.do").forward(request, response);
+        }
+    }
+
+    protected void delete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+    }
+
+    protected void delete_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String op = request.getParameter("op");
+            switch (op) {
+                case "yes":
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    ShoesFacade sf = new ShoesFacade();
+                    sf.delete(id);
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
+                case "no":
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+    }
+
+    protected void edit(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    try{
+     int id=Integer.parseInt(request.getParameter("id"));
+     ShoesFacade sf=new ShoesFacade();
+     Shoes shoes=sf.read(id);
+     //luu shoes vao request truyen cho view
+     request.setAttribute("shoes", shoes);
+         List<Shoes> list=sf.select();
+         request.setAttribute("list", list);
+            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
+     }catch(Exception ex){
+         ex.printStackTrace();
+     }
+}
+
+protected void edit_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String op = request.getParameter("op");
+            switch (op) {
+                case "update":
+                    int id=Integer.parseInt(request.getParameter("id"));
+                    String name = request.getParameter("name");
+                    String brand = request.getParameter("brand");
+                    String category = request.getParameter("category");
+                    String size = request.getParameter("size");
+                    int price = Integer.parseInt(request.getParameter("price"));
+                    Double discount = Double.parseDouble(request.getParameter("discount"));
+                    // tao doi tuong shoes
+                    Shoes shoes = new Shoes();
+                    shoes.setId(id);
+                    if (!name.isEmpty()) {
+                        shoes.setName(name);
+                    }
+                    if (!brand.isEmpty()) {
+                        shoes.setBrand(brand);
+                    }
+                    if (!category.isEmpty()) {
+                        shoes.setCategory(category);
+                    }
+                    StringBuilder sizeBuilder = new StringBuilder();
+                    if (size != null && !size.trim().isEmpty()) {
+                        String[] sizeArray = size.split(",");
+                        for (String sa : sizeArray) {
+                            sa = sa.trim();
+                            if (!sa.isEmpty() && sa.matches("\\d+")) {  // Only positive numbers
+                                if (sizeBuilder.length() > 0) {
+                                    sizeBuilder.append(",");  // Add comma between sizes
+                                }
+                                sizeBuilder.append(sa);
+                            }
+                        }
+                    }
+                    if (sizeBuilder.length() > 0) {
+                        shoes.setSize("[" + sizeBuilder.toString() + "]");
+                    }
+
+                    if (price > 0) {
+                        shoes.setPrice(price);
+                    }
+                    if (discount > 0 && discount < 100) {
+                        shoes.setDiscount(discount / 100);
+                    }
+                    //update data
+                    ShoesFacade sf = new ShoesFacade();
+                    sf.update(shoes);
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
+                case "cancel":
+                    request.getRequestDispatcher("/").forward(request, response);
+                    break;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", "Khong duoc bo trong hoac size, price va discount phai la so duong");
+            //cho hien lai view edit
+            edit(request, response);
+        }
+    }
+
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
