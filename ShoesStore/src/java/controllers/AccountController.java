@@ -57,7 +57,7 @@ public class AccountController extends HttpServlet {
                 request.getRequestDispatcher("/").forward(request, response);
             } else {
                 // Nếu đăng nhập sai, set thông báo lỗi và forward
-                request.setAttribute("message", "Wrong email and password!!!");
+                request.setAttribute("message", "Wrong email or password!!!");
                 request.setAttribute("openRegisterModal", true);
                 request.getRequestDispatcher("/").forward(request, response);
             }

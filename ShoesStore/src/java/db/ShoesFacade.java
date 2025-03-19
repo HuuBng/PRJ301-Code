@@ -263,7 +263,7 @@ public class ShoesFacade {
 
     public List<Shoes> getByPrice(String order, int min_price, int max_price, int page, int pageSize) throws SQLException {
         List<Shoes> shoesList = new ArrayList<>();
-        String sql = "SELECT * FROM Shoes WHERE price - (price * discount) >= ? AND price - (price * discount) <= ? ORDER BY price - (price * discount) " + order + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM Shoes WHERE price * (1 - discount) >= ? AND price * (1 - discount) <= ? ORDER BY price * (1 - discount) " + order + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
         try (Connection con = DBContext.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)) {

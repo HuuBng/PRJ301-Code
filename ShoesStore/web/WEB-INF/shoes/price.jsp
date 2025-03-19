@@ -5,6 +5,9 @@
 
 <div class="row">
     <div class="col-sm-12">
+        
+        <jsp:include page="/WEB-INF/layouts/function.jsp" />
+        
         <div class="float-end">
             <a href="<c:url value="/shoes/price.do?min_price=${min_price}&max_price=${max_price}&orderBy=${orderBy}&page=1"/>" class="btn btn-sm btn-primary ${page <=1?"disabled":""}" title="First">
                 <i class="bi bi-caret-left-fill"></i>

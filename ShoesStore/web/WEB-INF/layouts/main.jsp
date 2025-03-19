@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="<c:url value="/css/style.css"/>" rel="stylesheet"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -63,7 +64,7 @@
             <div class="row">
                 <div class="col-md-12 footer">
                     <%--footer--%>
-                    Copyright &COPY; by FPT students
+                    Copyright &COPY; by Group03
                 </div>
             </div>
         </div>
