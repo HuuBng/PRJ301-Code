@@ -1,6 +1,4 @@
- package db;
-
-import java.util.Date;
+package db;
 
 public class OrderDetail {
 

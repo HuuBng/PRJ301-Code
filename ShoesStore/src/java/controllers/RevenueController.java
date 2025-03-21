@@ -93,7 +93,7 @@ public class RevenueController extends HttpServlet {
             if (list != null) {
                 request.setAttribute("revList", list);
             }
-            
+
             request.setAttribute("action", "index");
             request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
 

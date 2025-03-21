@@ -109,7 +109,7 @@ public class RevenueFacade {
         Date endDate = calendar.getTime();
         // Calculate the date 7 days ago
         calendar.add(Calendar.DAY_OF_YEAR, -7);
-        Date startDate = calendar.getTime();        
+        Date startDate = calendar.getTime();
 
         // Format dates for SQL query
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -132,7 +132,6 @@ public class RevenueFacade {
                 + "ORDER BY \n"
                 + "    DAY(oh.date);";
 
-        System.out.println(sql);
         PreparedStatement stm = con.prepareStatement(sql);
 
         ResultSet rs = stm.executeQuery();

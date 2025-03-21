@@ -109,24 +109,32 @@ public class ShoesFacade {
         return rowCount;
     }
 
-    public void create(Shoes shoes) throws SQLException {
-        //Tao connection
+    public int create(Shoes shoes) throws SQLException {
         Connection con = DBContext.getConnection();
-        // Tao doi tuong stm va chuan bi cau lenh SQL
-        PreparedStatement stm = con.prepareStatement("INSERT shoes VALUES(?, ?, ?, ?, ?, ?)");
-        // Cung cap gia tri cho cac tham so
+        // Insert into db
+        String sql = "INSERT INTO shoes(name, brand, category, size, price, discount) VALUES(?, ?, ?, ?, ?, ?)";
+        PreparedStatement stm = con.prepareStatement(sql);
+
         stm.setString(1, shoes.getName());
         stm.setString(2, shoes.getBrand());
         stm.setString(3, shoes.getCategory());
         stm.setString(4, shoes.getSize());
         stm.setInt(5, shoes.getPrice());
         stm.setDouble(6, shoes.getDiscount());
+        stm.executeUpdate();
 
-        // Thuc hien lenh SQL
-        int count = stm.executeUpdate();
+        // Getting the inserted shoes's id
+        Statement stm2 = con.createStatement();
+        ResultSet rs = stm2.executeQuery("SELECT IDENT_CURRENT('Shoes') AS LastInsertedID;");
 
-        // Close connection
+        int lastId = 0;
+
+        if (rs.next()) {
+            lastId = rs.getInt("LastInsertedID");
+        }
+
         con.close();
+        return lastId;
     }
 
     public void delete(int id) throws SQLException {

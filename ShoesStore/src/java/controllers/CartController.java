@@ -1,14 +1,10 @@
 package controllers;
 
 import cart.Cart;
-import cart.Item;
 import db.Account;
 import db.Shoes;
 import db.ShoesFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javafx.scene.control.Alert;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

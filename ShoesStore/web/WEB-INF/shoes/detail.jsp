@@ -17,6 +17,10 @@
         <img src="<c:url value="/pictures/${shoes.id}.jpg"/>" alt="Shoe Image" style="width: 300px;
              height: auto;
              border-radius: 10px;"/>
+        
+        <c:if test="${account.role == 'ADMIN'}">
+            <p><strong>Id:</strong> ${shoes.id}</p>
+        </c:if>
 
         <p><strong>Name:</strong> ${shoes.name}</p>
         <p><strong>Brand:</strong> ${shoes.brand}</p>

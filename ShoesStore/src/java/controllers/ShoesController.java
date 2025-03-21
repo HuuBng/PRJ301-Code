@@ -2,21 +2,28 @@ package controllers;
 
 import db.Shoes;
 import db.ShoesFacade;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 @WebServlet(name = "ShoesController", urlPatterns = {"/shoes"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 50 // 50 MB
+)
 public class ShoesController extends HttpServlet {
 
     /**
@@ -335,9 +342,36 @@ public class ShoesController extends HttpServlet {
                         shoes.setDiscount(discount / 100);
                     }
 
+                    // Retrieve the file part from the request
+                    Part filePart = request.getPart("picture"); // "picture" matches the input field name
+
                     //insert data
                     ShoesFacade sf = new ShoesFacade();
-                    sf.create(shoes);
+                    int generatedId = sf.create(shoes);
+
+                    // Save the uploaded file if it exists
+                    if (filePart != null && filePart.getSize() > 0) {
+
+                        String fileName = generatedId + ".jpg";
+
+                        // Determine the absolute path of the /pictures folder
+                        // ex: C:\Users\Admin\Documents\Code\ShoesStore\build\web
+                        String applicationPath = request.getServletContext().getRealPath("");
+
+                        // ex: C:\Users\Admin\Documents\Code\ShoesStore\build\web\\pictures
+                        String picturesPath = applicationPath + File.separator + "pictures";
+
+                        // ex: C:\Users\Admin\Documents\Code\ShoesStore\web\\pictures
+                        picturesPath = picturesPath.replace("build\\", "");
+                        System.out.println("Create at: " + picturesPath);
+                        File picturesDir = new File(picturesPath);
+                        if (!picturesDir.exists()) {
+                            picturesDir.mkdirs();
+                        }
+
+                        // Write the file to the specified folder
+                        filePart.write(picturesPath + File.separator + fileName);
+                    }
                     request.getRequestDispatcher("/").forward(request, response);
                     break;
                 case "cancel":
@@ -346,7 +380,7 @@ public class ShoesController extends HttpServlet {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            request.setAttribute("message", "Khong duoc bo trong hoac size, price va discount phai la so duong");
+            request.setAttribute("message", "Error creating");
             request.getRequestDispatcher("/shoes/create.do").forward(request, response);
         }
     }
@@ -365,6 +399,24 @@ public class ShoesController extends HttpServlet {
                     int id = Integer.parseInt(request.getParameter("id"));
                     ShoesFacade sf = new ShoesFacade();
                     sf.delete(id);
+                    // Determine the absolute path of the /pictures folder
+                    // ex: C:\Users\Admin\Documents\Code\ShoesStore\build\web
+                    String applicationPath = request.getServletContext().getRealPath("");
+
+                    // ex: C:\Users\Admin\Documents\Code\ShoesStore\build\web\\pictures
+                    String picturesPath = applicationPath + File.separator + "pictures";
+
+                    // ex: C:\Users\Admin\Documents\Code\ShoesStore\web\pictures
+                    picturesPath = picturesPath.replace("build\\", "");
+
+                    // ex: C:\Users\Admin\Documents\Code\ShoesStore\web\pictures\<id>.jpg
+                    String imagePath = picturesPath + File.separator + id + ".jpg";
+
+//                    System.out.println("Delete: " + imagePath);
+                    File imageFile = new File(imagePath);
+                    if (imageFile.exists()) {
+                        imageFile.delete();
+                    }
                     request.getRequestDispatcher("/").forward(request, response);
                     break;
                 case "no":
@@ -419,7 +471,7 @@ public class ShoesController extends HttpServlet {
                     if (!category.isEmpty()) {
                         shoes.setCategory(category);
                     }
-                    
+
                     // Input and sort shoes size
                     // Use a List to hold the integer values
                     List<Integer> sizeList = new ArrayList<>();

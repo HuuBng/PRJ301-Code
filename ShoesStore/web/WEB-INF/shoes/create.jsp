@@ -3,7 +3,7 @@
 
 <h1>Create Shoes</h1>
 <hr/>
-<form action="<c:url value="/shoes/create_handler.do"/>">
+<form action="<c:url value="/shoes/create_handler.do"/>" method="post" enctype="multipart/form-data">
     Id: <br/>
     <input type="text" disabled=""/> <br/>
     Name: <br/>
@@ -17,10 +17,11 @@
     Price: <br/>
     <input type="number" name="price" min="1" value="${param.price}"/> <br/>
     Discount(%): <br/>
-    <input type="number" name="discount" min="1" max="99" value="${param.discount}"/>
+    <input type="number" name="discount" min="1" max="99" value="${param.discount}"/> <br/>
+    Picture: <br/>
+    <input type="file" name="picture" accept="image/*" /> <br/>
     <br/><br/>
     <button type="submit" name="op" value="create" >create</button>
     <button type="submit" name="op" value="cancel" >Cancel</button>
 </form>
 <i style="color: red">${message}</i>
-
