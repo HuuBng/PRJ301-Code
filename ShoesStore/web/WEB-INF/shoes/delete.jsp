@@ -3,7 +3,7 @@
 <h1>Delete Shoes</h1>
 <hr/>
 <form action="<c:url value="/shoes/delete_handler.do"/>">
-    Are you sure to delete this toy with id=${param.id};
+    Are you sure to delete this shoes with id=${param.id};
     <input type="hidden" name="id" value="${param.id}"/><br/>         
     <button type="submit" value="yes" name="op">Yes</button>
     <button type="submit" value="no" name="op">No</button>
